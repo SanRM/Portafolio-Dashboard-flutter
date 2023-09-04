@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "209186165717",
+    "project_id": "portafolio-65df7",
+    "storage_bucket": "portafolio-65df7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209186165717:android:82c0579736c506f03be35c",
+        "android_client_info": {
+          "package_name": "com.HorizonSanTech.portafolio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209186165717-hct2sj1h34hprasigirjqhf2lnelpukc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.HorizonSanTech.portafolio",
+            "certificate_hash": "4fedf3672e8b6860b718e62db05870084bbdc355"
+          }
+        },
+        {
+          "client_id": "209186165717-2ctodn2blksflgrla8832s5vkgnl49tv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN8V7_tXc5uaQQDuFhdxrD3FQZsmB4kG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209186165717-0354n21g5363hc3t9jkppgaoa0tjmvq1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "209186165717-estkgf0mj5jlcbfvdm4qlcjbr73e37fk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.portafolio.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
