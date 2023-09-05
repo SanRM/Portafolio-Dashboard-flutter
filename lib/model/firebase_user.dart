@@ -1,26 +1,20 @@
-
-
 import 'package:firebase_auth/firebase_auth.dart';
 
-class FirebaseUser {
+class FirebaseUserProfile {
+  String? _userId;
+  String? _userName;
+  String? _userEmail;
+  String? _userImageUrl;
 
-  String? _uid;
-  String? _name;
-  String? _email;
-  String? _imageUrl;
-
-  set user(User? user){
-
-    _uid = user != null ? user.uid : null;
-    _name = user != null ? user.displayName : null;
-    _email = user != null ? user.email : null;
-    _imageUrl = user != null ? user.photoURL : null;
-
+  set setUser(User? user) {
+    _userId = user != null ? user.uid : null;
+    _userName = user != null ? user.displayName : null;
+    _userEmail = user != null ? user.email : null;
+    _userImageUrl = user != null ? user.photoURL : null;
   }
 
-  String? get uid => _uid;
-  String? get name => _name;
-  String? get email => _email;
-  String? get imageUrl => _imageUrl;
-
+  String? get userId => _userId;
+  String? get userName => _userName;
+  String? get userEmail => _userEmail;
+  String? get userImageUrl => _userImageUrl;
 }
