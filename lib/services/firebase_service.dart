@@ -4,6 +4,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 FirebaseFirestore db = FirebaseFirestore.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
 
+CollectionReference projecList = db.collection("Lista de proyectos");
+
 Future<bool> addBandejaDeEntrada(
     String name, String email, String message) async {
   Map<String, dynamic> conversion = {
@@ -25,9 +27,7 @@ Future<bool> addBandejaDeEntrada(
 Future<List> getProjects() async {
   List projects = [];
 
-  CollectionReference collectionReference = db.collection("Lista de proyectos");
-
-  QuerySnapshot querySnapshot = await collectionReference.get();
+  QuerySnapshot querySnapshot = await projecList.get();
 
   querySnapshot.docs.forEach((documento) {
     projects.add(documento.data());
@@ -44,8 +44,32 @@ Future<List> getWhiteList() async {
   QuerySnapshot querySnapshot = await collectionReference.get();
 
   querySnapshot.docs.forEach((documento) {
+    documento.id;
     whiteList.add(documento.data());
   });
 
   return whiteList;
+}
+
+getDocumentID() async {
+
+  List projectsIds = [];
+
+  QuerySnapshot querySnapshot = await projecList.get();
+
+  querySnapshot.docs.forEach((element) { 
+    print(element.id);
+    projectsIds.add(element.id);
+  });
+
+  return projectsIds;
+
+}
+
+editDocumentInfo(id) async {
+
+  var docRef = db.collection("Lista de proyectos").doc();
+
+  print(docRef.id);
+
 }

@@ -18,6 +18,7 @@ class _HomeState extends State<Home> {
   void _showApprovedSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         dismissDirection: DismissDirection.startToEnd,
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: 5),
@@ -36,6 +37,7 @@ class _HomeState extends State<Home> {
                 '¡Sesión iniciada correctamente!',
                 style: TextStyle(
                   //color: primaryBlack,
+                  fontSize: 20,
                   color: Color.fromARGB(255, 255, 255, 255),
                   fontWeight: FontWeight.bold,
                 ),
@@ -50,6 +52,7 @@ class _HomeState extends State<Home> {
   void _showRejectedSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         dismissDirection: DismissDirection.startToEnd,
         behavior: SnackBarBehavior.floating,
         duration: Duration(seconds: 5),
@@ -67,6 +70,7 @@ class _HomeState extends State<Home> {
               child: Text(
                 '¡No se pudo iniciar la sesión!',
                 style: TextStyle(
+                  fontSize: 20,
                   //color: primaryBlack,
                   color: Color.fromARGB(255, 255, 255, 255),
                   fontWeight: FontWeight.bold,
@@ -87,90 +91,109 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Login'),
-      ),
-      body: _userProfile.userId == null
-          ? _buildLoginScreen()
-          : _buildLoggedInScreen(),
-      floatingActionButton: _userProfile.userId != null
-          ? FloatingActionButton.extended(icon: Icon(Icons.add), label: Text('Crear proyecto'), onPressed: (){})
-          : Container()
-    );
+    return _userProfile.userId == null
+        ? _buildLoginScreen()
+        : _buildLoggedInScreen();
   }
 
-  ListView _buildLoginScreen() {
-    return ListView(
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(40),
-          child: ListTile(
-            tileColor: Color.fromARGB(255, 236, 245, 255),
-            leading: Padding(
-              padding: const EdgeInsets.all(15),
-              child: Image.asset('assets/logo.png'),
-            ),
-            title: Text(
-              'Google sign in',
-              style: TextStyle(color: Color.fromARGB(255, 0, 51, 114)),
-            ),
-            onTap: () async {
-              final login = await _authService.signInWithGoogle();
-              setState(() {
-                _userProfile.setUser = _authService.currentUser;
-              });
-              if (login != null) {
-                return _showApprovedSnackBar();
-              } else {
-                return _showRejectedSnackBar();
-              }
-            },
+  _buildLoginScreen() {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Iniciar sesión'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(40),
+        child: ListTile(
+          tileColor: Color.fromARGB(255, 236, 245, 255),
+          leading: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Image.asset('assets/logo.png'),
           ),
+          title: Text(
+            'Google sign in',
+            style: TextStyle(color: Color.fromARGB(255, 0, 51, 114)),
+          ),
+          onTap: () async {
+            final login = await _authService.signInWithGoogle();
+            setState(() {
+              _userProfile.setUser = _authService.currentUser;
+            });
+            if (login != null) {
+              return _showApprovedSnackBar();
+            } else {
+              return _showRejectedSnackBar();
+            }
+          },
         ),
-        
-      ],
+      ),
     );
   }
 
   _buildLoggedInScreen() {
-    return Center(
-      child: Column(
-        children: [
-          CircleAvatar(
-            backgroundImage: NetworkImage(_userProfile.userImageUrl!),
-          ),
-          Text(_userProfile.userName!),
-          Text(_userProfile.userEmail!),
-          ElevatedButton.icon(
-            onPressed: () async {
-              await _authService.signOutWithGoogle();
-              setState(() {
-                _userProfile.setUser = _authService.currentUser;
-              });
-            },
-            icon: Icon(Icons.logout),
-            label: Text('Log out'),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          FutureBuilder(
-            future: getProjects(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return PortafolioProjects(snapshot: snapshot);
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator(
-                    strokeWidth: 3,
-                    color: Color.fromARGB(137, 0, 141, 151),
-                  ),
-                );
-              }
-            },
+    return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add),
+        label: Text('Crear proyecto'),
+        onPressed: () {},
+      ),
+      appBar: AppBar(
+        title: Text('Portafolio dashboard'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 20),
+            child: ElevatedButton.icon(
+              onPressed: () async {
+                await _authService.signOutWithGoogle();
+                setState(() {
+                  _userProfile.setUser = _authService.currentUser;
+                });
+              },
+              icon: Icon(Icons.logout),
+              label: Text('Salir'),
+            ),
           ),
         ],
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(40),
+          child: Center(
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 10, right: 10, left: 10),
+                  child: ListTile(
+                    shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).colorScheme.onSecondaryContainer), borderRadius: BorderRadius.circular(10)),
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(_userProfile.userImageUrl!),
+                    ),
+                    title: Text(_userProfile.userName!, style: TextStyle(fontWeight: FontWeight.bold),),
+                    subtitle: Text(_userProfile.userEmail!),
+                    tileColor: Colors.white,
+                  ),
+                ),
+                Container(
+                  child: FutureBuilder(
+                    future: getProjects(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return PortafolioProjects(snapshot: snapshot);
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Color.fromARGB(137, 0, 141, 151),
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

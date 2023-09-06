@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:portafolio_dashboard_flutter/pages/editProject.dart';
+import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class PortafolioProjects extends StatefulWidget {
   PortafolioProjects({super.key, required this.snapshot});
@@ -21,48 +23,111 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
     var dataLength = data?.length;
 
     for (var i = 0; i < dataLength!; i++) {
-      print('');
-      print('project $i: ${data?[i]}');
-      print('');
+      // print('');
+      // print('project $i: ${data?[i]}');
+      // print('');
     }
 
+    print(getDocumentID());
+
     return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       itemCount: dataLength,
       //padding: EdgeInsets.all(20),
       itemBuilder: (context, index) {
-        Color cardColor = Color(data?[index]['cardBgColor']).withOpacity(1);
+        final linksCount = data?[index]['projectLinks'].length;
+        final projectTitle = data?[index]['projectTitle'];
+        final projectDescription = data?[index]['projectDescription'];
+        final projectLabels = data?[index]['projectLabels'];
+        final projectLinks = data?[index]['projectLinks'];
+        final projectBanner = data?[index]['projectBanner'];
+        final cardColor = Color(data?[index]['cardBgColor']).withOpacity(1);
 
         final originalCardBgColor = HSLColor.fromColor(cardColor);
-        final finalCardBgColor =
+        final textColor =
             originalCardBgColor.withLightness(0.2.clamp(0.0, 1.0)).toColor();
+        final finalCardBgColor =
+            originalCardBgColor.withLightness(0.8.clamp(0.0, 1.0)).toColor();
+        final buttonColor =
+            originalCardBgColor.withLightness(0.7.clamp(0.0, 1.0)).toColor();
 
         return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 25),
+          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
           child: ListTile(
-            splashColor: cardColor,
+            splashColor: Color.fromARGB(68, 255, 255, 255),
             onTap: () {
-              editProjectInformation();
+              Navigator.push(context, MaterialPageRoute(
+                builder: (context) {
+                  return EditProjectPage(
+                      index: index,
+                      projectTitle: projectTitle,
+                      projectDescription: projectDescription,
+                      projectLabels: projectLabels,
+                      projectLinks: projectLinks,
+                      projectBanner: projectBanner,
+                      cardColor: cardColor);
+                },
+              ));
             },
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            leading: data?[index]['projectBanner'] == 'default'
-                ? Image.network(
-                    'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20')
-                : Image.network('${data?[index]['projectBanner']}'),
+            shape: RoundedRectangleBorder(
+                side: BorderSide(width: 2, color: textColor),
+                borderRadius: BorderRadius.circular(10)),
+            leading: projectBanner == 'default'
+                ? Container(
+                    decoration: BoxDecoration(
+                        color: cardColor,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(width: 2, color: textColor)),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(
+                            'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20')))
+                : Container(
+                    decoration: BoxDecoration(
+                        color: cardColor,
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(width: 2, color: textColor)),
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.circular(10),
+                        child: Image.network(projectBanner))),
             title: Text(
-              '${data?[index]['projectTitle']}',
+              projectTitle,
               style: TextStyle(
-                  color: finalCardBgColor, fontWeight: FontWeight.bold),
+                  color: textColor, fontWeight: FontWeight.bold, fontSize: 18),
             ),
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${data?[index]['projectDescription']}'),
-                Text('${data?[index]['projectLabels']}')
+                Text(
+                  projectDescription,
+                  style: TextStyle(color: textColor, fontSize: 15),
+                ),
+                Text(
+                  '$projectLabels',
+                  style: TextStyle(color: textColor, fontSize: 15),
+                ),
+                ListView.builder(
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: linksCount,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return FilledButton.icon(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStatePropertyAll(buttonColor),
+                        ),
+                        onPressed: () {},
+                        icon: Icon(Icons.open_in_new_rounded, color: textColor),
+                        label: Text(
+                          projectLinks[0]['name'],
+                          style: TextStyle(color: textColor),
+                        ));
+                  },
+                )
               ],
             ),
-            tileColor: cardColor,
+            tileColor: finalCardBgColor,
           ),
         );
       },
@@ -72,78 +137,5 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
     //   title: Text('asd'),
     //   tileColor: Colors.cyan,
     // );
-  }
-
-  void editProjectInformation() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Editor de proyectos'),
-          content: Form(
-              child: Column(
-            children: [
-              TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    label: Text('Cambiar titulo del proyecto')),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    label: Text('Cambiar descripción del proyecto')),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    label: Text('Cambiar banner del proyecto')),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    label: Text('Cambiar etiquetas del proyecto')),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    label: Text('Cambiar links del proyecto')),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    label: Text('Cambiar color del proyecto')),
-              ),
-            ],
-          )),
-        );
-      },
-    );
   }
 }
