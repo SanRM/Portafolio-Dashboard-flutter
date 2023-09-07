@@ -28,107 +28,122 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
       // print('');
     }
 
-    print(getDocumentID());
+    return FutureBuilder(
+      future: getDocumentID(),
+      builder: (context, snapshot) {
 
-    return ListView.builder(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: dataLength,
-      //padding: EdgeInsets.all(20),
-      itemBuilder: (context, index) {
-        final linksCount = data?[index]['projectLinks'].length;
-        final projectTitle = data?[index]['projectTitle'];
-        final projectDescription = data?[index]['projectDescription'];
-        final projectLabels = data?[index]['projectLabels'];
-        final projectLinks = data?[index]['projectLinks'];
-        final projectBanner = data?[index]['projectBanner'];
-        final cardColor = Color(data?[index]['cardBgColor']).withOpacity(1);
+        var projectsID = snapshot.data;
 
-        final originalCardBgColor = HSLColor.fromColor(cardColor);
-        final textColor =
-            originalCardBgColor.withLightness(0.2.clamp(0.0, 1.0)).toColor();
-        final finalCardBgColor =
-            originalCardBgColor.withLightness(0.8.clamp(0.0, 1.0)).toColor();
-        final buttonColor =
-            originalCardBgColor.withLightness(0.7.clamp(0.0, 1.0)).toColor();
+        return ListView.builder(
+          physics: NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemCount: dataLength,
+          //padding: EdgeInsets.all(20),
+          itemBuilder: (context, index) {
 
-        return Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-          child: ListTile(
-            splashColor: Color.fromARGB(68, 255, 255, 255),
-            onTap: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) {
-                  return EditProjectPage(
-                      index: index,
-                      projectTitle: projectTitle,
-                      projectDescription: projectDescription,
-                      projectLabels: projectLabels,
-                      projectLinks: projectLinks,
-                      projectBanner: projectBanner,
-                      cardColor: cardColor);
+            final projectID = projectsID?[index];
+
+            final linksCount = data?[index]['projectLinks'].length;
+            final projectTitle = data?[index]['projectTitle'];
+            final projectDescription = data?[index]['projectDescription'];
+            final projectLabels = data?[index]['projectLabels'];
+            final projectLinks = data?[index]['projectLinks'];
+            final projectBanner = data?[index]['projectBanner'];
+            final cardColor = Color(data?[index]['cardBgColor']).withOpacity(1);
+
+            final originalCardBgColor = HSLColor.fromColor(cardColor);
+            final textColor = originalCardBgColor
+                .withLightness(0.2.clamp(0.0, 1.0))
+                .toColor();
+            final finalCardBgColor = originalCardBgColor
+                .withLightness(0.8.clamp(0.0, 1.0))
+                .toColor();
+            final buttonColor = originalCardBgColor
+                .withLightness(0.7.clamp(0.0, 1.0))
+                .toColor();
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+              child: ListTile(
+                splashColor: Color.fromARGB(68, 255, 255, 255),
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return EditProjectPage(
+                          projectID: projectID,
+                          projectTitle: projectTitle,
+                          projectDescription: projectDescription,
+                          projectLabels: projectLabels,
+                          projectLinks: projectLinks,
+                          projectBanner: projectBanner,
+                          cardColor: cardColor);
+                    },
+                  ));
                 },
-              ));
-            },
-            shape: RoundedRectangleBorder(
-                side: BorderSide(width: 2, color: textColor),
-                borderRadius: BorderRadius.circular(10)),
-            leading: projectBanner == 'default'
-                ? Container(
-                    decoration: BoxDecoration(
-                        color: cardColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 2, color: textColor)),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(
-                            'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20')))
-                : Container(
-                    decoration: BoxDecoration(
-                        color: cardColor,
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(width: 2, color: textColor)),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image.network(projectBanner))),
-            title: Text(
-              projectTitle,
-              style: TextStyle(
-                  color: textColor, fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            subtitle: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  projectDescription,
-                  style: TextStyle(color: textColor, fontSize: 15),
+                shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 2, color: textColor),
+                    borderRadius: BorderRadius.circular(10)),
+                leading: projectBanner == 'default'
+                    ? Container(
+                        decoration: BoxDecoration(
+                            color: cardColor,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(width: 2, color: textColor)),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(
+                                'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20')))
+                    : Container(
+                        decoration: BoxDecoration(
+                            color: cardColor,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(width: 2, color: textColor)),
+                        child: ClipRRect(
+                            borderRadius: BorderRadius.circular(10),
+                            child: Image.network(projectBanner))),
+                title: Text(
+                  projectTitle,
+                  style: TextStyle(
+                      color: textColor,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18),
                 ),
-                Text(
-                  '$projectLabels',
-                  style: TextStyle(color: textColor, fontSize: 15),
+                subtitle: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      projectDescription,
+                      style: TextStyle(color: textColor, fontSize: 15),
+                    ),
+                    Text(
+                      '$projectLabels',
+                      style: TextStyle(color: textColor, fontSize: 15),
+                    ),
+                    ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: linksCount,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return FilledButton.icon(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStatePropertyAll(buttonColor),
+                            ),
+                            onPressed: () {},
+                            icon: Icon(Icons.open_in_new_rounded,
+                                color: textColor),
+                            label: Text(
+                              projectLinks[0]['name'],
+                              style: TextStyle(color: textColor),
+                            ));
+                      },
+                    )
+                  ],
                 ),
-                ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: linksCount,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return FilledButton.icon(
-                        style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(buttonColor),
-                        ),
-                        onPressed: () {},
-                        icon: Icon(Icons.open_in_new_rounded, color: textColor),
-                        label: Text(
-                          projectLinks[0]['name'],
-                          style: TextStyle(color: textColor),
-                        ));
-                  },
-                )
-              ],
-            ),
-            tileColor: finalCardBgColor,
-          ),
+                tileColor: finalCardBgColor,
+              ),
+            );
+          },
         );
       },
     );

@@ -6,8 +6,7 @@ FirebaseStorage storage = FirebaseStorage.instance;
 
 CollectionReference projecList = db.collection("Lista de proyectos");
 
-Future<bool> addBandejaDeEntrada(
-    String name, String email, String message) async {
+Future<bool> addBandejaDeEntrada(String name, String email, String message) async {
   Map<String, dynamic> conversion = {
     "nombre": name,
     "email": email,
@@ -44,21 +43,19 @@ Future<List> getWhiteList() async {
   QuerySnapshot querySnapshot = await collectionReference.get();
 
   querySnapshot.docs.forEach((documento) {
-    documento.id;
     whiteList.add(documento.data());
   });
 
   return whiteList;
 }
 
-getDocumentID() async {
+  Future<List> getDocumentID() async {
 
-  List projectsIds = [];
+  List<String> projectsIds = [];
 
   QuerySnapshot querySnapshot = await projecList.get();
 
   querySnapshot.docs.forEach((element) { 
-    print(element.id);
     projectsIds.add(element.id);
   });
 
@@ -66,10 +63,11 @@ getDocumentID() async {
 
 }
 
-editDocumentInfo(id) async {
-
-  var docRef = db.collection("Lista de proyectos").doc();
-
-  print(docRef.id);
-
+Future<void> updateDocument(String documentId, Map<String, dynamic> updatedData) async {
+  try {
+    await FirebaseFirestore.instance.collection('tu_coleccion').doc(documentId).update(updatedData);
+    print('Documento actualizado exitosamente');
+  } catch (e) {
+    print('Error al actualizar el documento: $e');
+  }
 }
