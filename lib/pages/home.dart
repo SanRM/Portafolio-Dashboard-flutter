@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/projects.dart';
+import 'package:portafolio_dashboard_flutter/pages/addproject.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
@@ -134,7 +135,11 @@ class _HomeState extends State<Home> {
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add),
         label: Text('Crear proyecto'),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context) {
+            return AddProjectPage();
+          },));
+        },
       ),
       appBar: AppBar(
         title: Text('Portafolio dashboard'),
@@ -154,43 +159,49 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(40),
-          child: Center(
-            child: Column(
-              children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: 10, right: 10, left: 10),
-                  child: ListTile(
-                    shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).colorScheme.onSecondaryContainer), borderRadius: BorderRadius.circular(10)),
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(_userProfile.userImageUrl!),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          Navigator.popAndPushNamed(context,'/');
+        },
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(40),
+            child: Center(
+              child: Column(
+                children: [
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 10, right: 10, left: 10),
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).colorScheme.onSecondaryContainer), borderRadius: BorderRadius.circular(10)),
+                      leading: CircleAvatar(
+                        backgroundImage: NetworkImage(_userProfile.userImageUrl!),
+                      ),
+                      title: Text(_userProfile.userName!, style: TextStyle(fontWeight: FontWeight.bold),),
+                      subtitle: Text(_userProfile.userEmail!),
+                      tileColor: Colors.white,
                     ),
-                    title: Text(_userProfile.userName!, style: TextStyle(fontWeight: FontWeight.bold),),
-                    subtitle: Text(_userProfile.userEmail!),
-                    tileColor: Colors.white,
                   ),
-                ),
-                Container(
-                  child: FutureBuilder(
-                    future: getProjects(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return PortafolioProjects(snapshot: snapshot);
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 3,
-                            color: Color.fromARGB(137, 0, 141, 151),
-                          ),
-                        );
-                      }
-                    },
+                  Container(
+                    child: FutureBuilder(
+                      future: getProjects(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          //print(snapshot.data);
+                          return PortafolioProjects(snapshot: snapshot);
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                              color: Color.fromARGB(137, 0, 141, 151),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

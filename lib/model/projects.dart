@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/pages/editProject.dart';
+import 'package:portafolio_dashboard_flutter/pages/editProjectPage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class PortafolioProjects extends StatefulWidget {
@@ -49,9 +49,10 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
             final projectLabels = data?[index]['projectLabels'];
             final projectLinks = data?[index]['projectLinks'];
             final projectBanner = data?[index]['projectBanner'];
-            final cardColor = Color(data?[index]['cardBgColor']).withOpacity(1);
+            final projectCardColorTypeInt = data?[index]['cardBgColor'];
+            final projectCardColorTypeColor = Color(data?[index]['cardBgColor']).withOpacity(1);
 
-            final originalCardBgColor = HSLColor.fromColor(cardColor);
+            final originalCardBgColor = HSLColor.fromColor(projectCardColorTypeColor);
             final textColor = originalCardBgColor
                 .withLightness(0.2.clamp(0.0, 1.0))
                 .toColor();
@@ -76,7 +77,8 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
                           projectLabels: projectLabels,
                           projectLinks: projectLinks,
                           projectBanner: projectBanner,
-                          cardColor: cardColor);
+                          cardColorDecimal: projectCardColorTypeInt,
+                          cardColor: projectCardColorTypeColor);
                     },
                   ));
                 },
@@ -86,7 +88,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
                 leading: projectBanner == 'default'
                     ? Container(
                         decoration: BoxDecoration(
-                            color: cardColor,
+                            color: projectCardColorTypeColor,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(width: 2, color: textColor)),
                         child: ClipRRect(
@@ -95,7 +97,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
                                 'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20')))
                     : Container(
                         decoration: BoxDecoration(
-                            color: cardColor,
+                            color: projectCardColorTypeColor,
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(width: 2, color: textColor)),
                         child: ClipRRect(

@@ -6,23 +6,6 @@ FirebaseStorage storage = FirebaseStorage.instance;
 
 CollectionReference projecList = db.collection("Lista de proyectos");
 
-Future<bool> addBandejaDeEntrada(String name, String email, String message) async {
-  Map<String, dynamic> conversion = {
-    "nombre": name,
-    "email": email,
-    "mensaje": message
-  };
-
-  try {
-    await db.collection("Bandeja de entrada").add(conversion);
-    print('Operación exitosa: Mensaje enviado correctamente');
-    return true;
-  } catch (e) {
-    print('Error al enviar el mensaje: $e');
-    return false;
-  }
-}
-
 Future<List> getProjects() async {
   List projects = [];
 
@@ -63,11 +46,62 @@ Future<List> getWhiteList() async {
 
 }
 
-Future<void> updateDocument(String documentId, Map<String, dynamic> updatedData) async {
+Future<void> updateDocument(String projectID, int cardBgColor, String projectBanner, String projectDescription, List projectLabels, List projectLinks, String projectTitle) async {
   try {
-    await FirebaseFirestore.instance.collection('tu_coleccion').doc(documentId).update(updatedData);
-    print('Documento actualizado exitosamente');
-  } catch (e) {
-    print('Error al actualizar el documento: $e');
+    // Obtiene una referencia al documento que deseas editar
+    DocumentReference docRef = FirebaseFirestore.instance.collection('Lista de proyectos').doc(projectID);
+
+    Map<String, dynamic> conversion = {
+      "cardBgColor": cardBgColor,
+      "projectBanner": projectBanner,
+      "projectDescription": projectDescription,
+      "projectLabels": projectLabels,
+      "projectLinks": projectLinks,
+      "projectTitle" : projectTitle,
+    };
+
+    print(conversion);
+
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    await docRef.set(conversion);
+
+    print('Documento editado con éxito');
+  } catch (error) {
+    print('Error al editar el documento: $error');
+  }
+}
+
+Future<void> addDocument(int cardBgColor, String projectBanner, String projectDescription, List projectLabels, List projectLinks, String projectTitle) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+
+    Map<String, dynamic> conversion = {
+      "cardBgColor": cardBgColor,
+      "projectBanner": projectBanner,
+      "projectDescription": projectDescription,
+      "projectLabels": projectLabels,
+      "projectLinks": projectLinks,
+      "projectTitle" : projectTitle,
+    };
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    await db.collection("Lista de proyectos").add(conversion);
+
+    print('Documento creado con éxito');
+  } catch (error) {
+    print('Error al crear el documento: $error');
+  }
+}
+
+Future<void> deleteDocument(String projectID) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    DocumentReference docRef = FirebaseFirestore.instance.collection('Lista de proyectos').doc(projectID);
+
+    await docRef.delete();
+
+    print('Documento eliminado con éxito');
+  } catch (error) {
+    print('Error al eliminado el documento: $error');
   }
 }
