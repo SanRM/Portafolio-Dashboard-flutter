@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/projects.dart';
-import 'package:portafolio_dashboard_flutter/pages/addproject.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/Galery.dart';
+import 'package:portafolio_dashboard_flutter/pages/project%20pages/addproject.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
@@ -136,32 +137,70 @@ class _HomeState extends State<Home> {
         icon: Icon(Icons.add),
         label: Text('Crear proyecto'),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return AddProjectPage();
-          },));
+          Navigator.push(context, MaterialPageRoute(
+            builder: (context) {
+              return AddProjectPage();
+            },
+          ));
         },
       ),
-      appBar: AppBar(
-        title: Text('Portafolio dashboard'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 20),
-            child: ElevatedButton.icon(
-              onPressed: () async {
-                await _authService.signOutWithGoogle();
-                setState(() {
-                  _userProfile.setUser = _authService.currentUser;
-                });
-              },
-              icon: Icon(Icons.logout),
-              label: Text('Salir'),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+                accountName: Text(_userProfile.userName!),
+                accountEmail: Text(_userProfile.userEmail!),
+                currentAccountPicture: CircleAvatar(
+                  backgroundImage: NetworkImage(_userProfile.userImageUrl!),
+                )),
+            Column(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.edit_note_sharp),
+                  title: Text('Editor de proyectos'),
+                  onTap: () {
+                    // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
+                    Navigator.pop(context); // Cierra el cajón lateral.
+                    Navigator.pushNamed(context, '/');
+                  },
+                ),
+                ListTile(
+                  leading: Icon(Icons.image),
+                  title: Text('Galeria'),
+                  onTap: () {
+                    // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
+                    //Navigator.pop(context); // Cierra el cajón lateral.
+                    Navigator.pushNamed(context, '/Galery');
+                  },
+                ),
+              ],
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.only(right: 20, left: 20),
+              child: FilledButton.icon(
+                onPressed: () async {
+                  Navigator.pop(context);
+                  await _authService.signOutWithGoogle();
+                  setState(() {
+                    _userProfile.setUser = _authService.currentUser;
+                  });
+                },
+                icon: Icon(Icons.logout),
+                label: Text('Cerrar sesión'),
+              ),
+            ),
+            // Agrega más elementos de lista según tus necesidades.
+          ],
+        ),
+      ),
+      // El c
+      appBar: AppBar(
+        title: Text('Lista de proyectos'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          Navigator.popAndPushNamed(context,'/');
+          Navigator.popAndPushNamed(context, '/');
         },
         child: SingleChildScrollView(
           child: Padding(
@@ -169,19 +208,6 @@ class _HomeState extends State<Home> {
             child: Center(
               child: Column(
                 children: [
-                  Padding(
-                    padding:
-                        const EdgeInsets.only(bottom: 10, right: 10, left: 10),
-                    child: ListTile(
-                      shape: RoundedRectangleBorder(side: BorderSide(width: 2, color: Theme.of(context).colorScheme.onSecondaryContainer), borderRadius: BorderRadius.circular(10)),
-                      leading: CircleAvatar(
-                        backgroundImage: NetworkImage(_userProfile.userImageUrl!),
-                      ),
-                      title: Text(_userProfile.userName!, style: TextStyle(fontWeight: FontWeight.bold),),
-                      subtitle: Text(_userProfile.userEmail!),
-                      tileColor: Colors.white,
-                    ),
-                  ),
                   Container(
                     child: FutureBuilder(
                       future: getProjects(),
@@ -205,6 +231,82 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class AppDrawer extends StatefulWidget {
+  AppDrawer({required this.userProfile, required this.authService});
+
+  final FirebaseUserProfile userProfile;
+  final GoogleAuthService authService;
+
+  @override
+  State<AppDrawer> createState() =>
+      _AppDrawerState(userProfile: userProfile, authService: authService);
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  _AppDrawerState({required this.userProfile, required this.authService});
+
+  final FirebaseUserProfile userProfile;
+  final GoogleAuthService authService;
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          UserAccountsDrawerHeader(
+              accountName: Text(widget.userProfile.userName!),
+              accountEmail: Text(widget.userProfile.userEmail!),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(widget.userProfile.userImageUrl!),
+              )),
+          Column(
+            children: [
+              ListTile(
+                leading: Icon(Icons.edit_note_sharp),
+                title: Text('Editor de proyectos'),
+                onTap: () {
+                  // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
+                  //Navigator.pop(context); // Cierra el cajón lateral.
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return Home();
+                  },));
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.image),
+                title: Text('Galeria'),
+                onTap: () {
+                  // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
+                  //Navigator.pop(context); // Cierra el cajón lateral.
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return GaleryPage();
+                  },));
+                },
+              ),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 20, left: 20),
+            child: FilledButton.icon(
+              onPressed: () async {
+                Navigator.pop(context);
+                await widget.authService.signOutWithGoogle();
+                setState(() {
+                  widget.userProfile.setUser = widget.authService.currentUser;
+                });
+              },
+              icon: Icon(Icons.logout),
+              label: Text('Cerrar sesión'),
+            ),
+          ),
+          // Agrega más elementos de lista según tus necesidades.
+        ],
       ),
     );
   }

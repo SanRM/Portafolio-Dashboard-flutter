@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/pages/editProjectPage.dart';
+import 'package:portafolio_dashboard_flutter/pages/project%20pages/editProjectPage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class PortafolioProjects extends StatefulWidget {
