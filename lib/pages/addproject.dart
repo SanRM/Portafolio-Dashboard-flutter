@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:portafolio_dashboard_flutter/services/file_picker.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class AddProjectPage extends StatefulWidget {
@@ -11,6 +14,10 @@ class AddProjectPage extends StatefulWidget {
 
 class _AddProjectPageState extends State<AddProjectPage> {
   int fieldCount = 0;
+
+  bool? bannerChanged;
+  File? ImageLocalPath;
+  bool mostrarPrevisualizacion = true;
 
   removeLabel() {
     setState(() {
@@ -165,7 +172,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
   String? projectTitle;
   String? projectDescription;
-  String? projectBanner;
+  String projectBanner =
+      'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20';
   Color cardColor = Colors.white;
   int? cardColorDecimal;
 
@@ -231,23 +239,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   ),
                   SizedBox(
                     height: 20,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: TextFormField(
-                      onChanged: (value) {
-                        setState(() {
-                          projectBanner = value;
-                        });
-                      },
-                      initialValue: projectBanner,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.black)),
-                        label: Text('Banner'),
-                      ),
-                    ),
                   ),
                 ],
               ),
@@ -350,6 +341,97 @@ class _AddProjectPageState extends State<AddProjectPage> {
               child: Column(
                 children: [
                   Padding(
+                    padding:
+                        const EdgeInsets.only(top: 15, right: 15, left: 15),
+                    child: Text(
+                      'Banner',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Container(
+                      width: double.infinity,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: cardColor,
+                        borderRadius: BorderRadius.circular(15),
+                        border: Border.all(width: 2),
+                      ),
+                      child: projectBanner == 'default'
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: ImageLocalPath == null
+                                  ? Image.network(
+                                      'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20',
+                                      fit: BoxFit.cover)
+                                  : Image.file(ImageLocalPath!,
+                                      fit: BoxFit.cover))
+                          : ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: ImageLocalPath == null
+                                  ? Image.network(projectBanner,
+                                      fit: BoxFit.cover)
+                                  : Image.file(ImageLocalPath!,
+                                      fit: BoxFit.cover)),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: IconButton.filledTonal(
+                          onPressed: () {
+                            setState(() {
+                              bannerChanged = false;
+                              ImageLocalPath = null;
+                              selectedFile = null;
+                            });
+                          },
+                          icon: Icon(Icons.remove_circle),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: FilledButton.icon(
+                          onPressed: () async {
+                            selectedFile = await selectFile();
+
+                            if (selectedFile != null) {
+                              final imageLocalPath =
+                                  File(selectedFile!.paths[0]!);
+
+                              setState(() {
+                                bannerChanged = true;
+                                ImageLocalPath = imageLocalPath;
+                              });
+                            }
+                          },
+                          icon: Icon(Icons.file_upload_outlined),
+                          label: Text('Subir'),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: FilledButton.icon(
+                          onPressed: () {},
+                          icon: Icon(Icons.image),
+                          label: Text('Galeria'),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Card(
+              child: Column(
+                children: [
+                  Padding(
                     padding: const EdgeInsets.all(15),
                     child: Text(
                       'Seleccionar color del proyecto',
@@ -360,10 +442,41 @@ class _AddProjectPageState extends State<AddProjectPage> {
                     hexInputBar: true,
                     pickerColor: cardColor,
                     onColorChanged: (value) {
-                      cardColor = value;
+                      if (mostrarPrevisualizacion == true) {
+                        setState(() {
+                          cardColor = value;
+                        });
+                      } else {
+                        cardColor = value;
+                      }
+
                       cardColorDecimal = value.value;
                     },
                     pickerAreaHeightPercent: 0.4,
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(bottom: 15, left: 15, right: 15),
+                    child: FilledButton.tonalIcon(
+                      onPressed: () {
+                        if (mostrarPrevisualizacion == true) {
+                          setState(() {
+                            mostrarPrevisualizacion = false;
+                          });
+                        } else {
+                          setState(() {
+                            mostrarPrevisualizacion = true;
+                          });
+                        }
+                        ;
+                      },
+                      icon: mostrarPrevisualizacion == false
+                          ? Icon(Icons.remove_red_eye_outlined)
+                          : Icon(Icons.remove_red_eye),
+                      label: mostrarPrevisualizacion == false
+                          ? Text('Mostrar previsualización')
+                          : Text('Ocultar previsualización'),
+                    ),
                   ),
                 ],
               ),
@@ -384,7 +497,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
                 addDocument(
                     cardColorDecimal!,
-                    projectBanner!,
+                    projectBanner,
                     projectDescription!,
                     projectLabelsListEmpty,
                     buttonsListFinished,

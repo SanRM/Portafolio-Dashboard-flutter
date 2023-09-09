@@ -31,7 +31,6 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
     return FutureBuilder(
       future: getDocumentID(),
       builder: (context, snapshot) {
-
         var projectsID = snapshot.data;
 
         return ListView.builder(
@@ -40,7 +39,6 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
           itemCount: dataLength,
           //padding: EdgeInsets.all(20),
           itemBuilder: (context, index) {
-
             final projectID = projectsID?[index];
 
             final linksCount = data?[index]['projectLinks'].length;
@@ -50,9 +48,11 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
             final projectLinks = data?[index]['projectLinks'];
             final projectBanner = data?[index]['projectBanner'];
             final projectCardColorTypeInt = data?[index]['cardBgColor'];
-            final projectCardColorTypeColor = Color(data?[index]['cardBgColor']).withOpacity(1);
+            final projectCardColorTypeColor =
+                Color(data?[index]['cardBgColor']).withOpacity(1);
 
-            final originalCardBgColor = HSLColor.fromColor(projectCardColorTypeColor);
+            final originalCardBgColor =
+                HSLColor.fromColor(projectCardColorTypeColor);
             final textColor = originalCardBgColor
                 .withLightness(0.2.clamp(0.0, 1.0))
                 .toColor();
@@ -101,8 +101,10 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
                             borderRadius: BorderRadius.circular(10),
                             border: Border.all(width: 2, color: textColor)),
                         child: ClipRRect(
-                            borderRadius: BorderRadius.circular(10),
-                            child: Image.network(projectBanner))),
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.network(projectBanner),
+                        ),
+                      ),
                 title: Text(
                   projectTitle,
                   style: TextStyle(
@@ -135,7 +137,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
                             icon: Icon(Icons.open_in_new_rounded,
                                 color: textColor),
                             label: Text(
-                              projectLinks[0]['name'],
+                              projectLinks[index]['name'],
                               style: TextStyle(color: textColor),
                             ));
                       },
