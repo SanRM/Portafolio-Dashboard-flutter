@@ -298,7 +298,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 Navigator.pop(context);
                 await widget.authService.signOutWithGoogle();
                 setState(() {
-                  widget.userProfile.setUser = widget.authService.currentUser;
+                  userProfile.setUser = authService.currentUser;
                 });
               },
               icon: Icon(Icons.logout),

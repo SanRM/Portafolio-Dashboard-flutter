@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
-import 'package:portafolio_dashboard_flutter/pages/Home.dart';
+import 'package:portafolio_dashboard_flutter/pages/home.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 
 class GaleryPage extends StatefulWidget {

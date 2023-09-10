@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/pages/Home.dart';
 import 'package:portafolio_dashboard_flutter/pages/galery/Galery.dart';
+import 'package:portafolio_dashboard_flutter/pages/home.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_options.dart';
 
 Future<void> main() async {
