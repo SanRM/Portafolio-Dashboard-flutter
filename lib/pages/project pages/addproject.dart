@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery_image_selector.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
@@ -16,6 +17,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
   int fieldCount = 0;
 
   bool? bannerChanged;
+  bool? bannerChangedFromStorage;
   File? ImageLocalPath;
   bool mostrarPrevisualizacion = true;
 
@@ -175,7 +177,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
   String projectBanner =
       'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20';
   Color cardColor = Colors.white;
-  int? cardColorDecimal;
+  int cardColorDecimal = 16777215;
+
+  String imageSelected = '';
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +206,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   Padding(
                     padding: const EdgeInsets.only(right: 15, left: 15),
                     child: TextFormField(
-                      
                       onChanged: (value) {
                         setState(() {
                           projectTitle = value;
@@ -367,14 +370,16 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                       'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20',
                                       fit: BoxFit.cover)
                                   : Image.file(ImageLocalPath!,
-                                      fit: BoxFit.cover))
+                                      fit: BoxFit.cover),
+                            )
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(10),
                               child: ImageLocalPath == null
                                   ? Image.network(projectBanner,
                                       fit: BoxFit.cover)
                                   : Image.file(ImageLocalPath!,
-                                      fit: BoxFit.cover)),
+                                      fit: BoxFit.cover),
+                            ),
                     ),
                   ),
                   Row(
@@ -400,7 +405,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
                             selectedFile = await selectFile();
 
                             if (selectedFile != null) {
-                              final imageLocalPath = File(selectedFile!.paths[0]!);
+                              final imageLocalPath =
+                                  File(selectedFile!.paths[0]!);
 
                               setState(
                                 () {
@@ -417,9 +423,25 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15),
                         child: FilledButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            imageSelected = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return GaleryImageSelector();
+                                },
+                              ),
+                            );
+
+                            setState(() {
+                              ImageLocalPath == null;
+                              projectBanner = imageSelected;
+                            });
+
+                            print(imageSelected);
+                          },
                           icon: Icon(Icons.image),
-                          label: Text('Galeria'),
+                          label: Text('Galería'),
                         ),
                       ),
                     ],
@@ -497,7 +519,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 // print('Botones del proyecto (Map): $buttonsListFinished');
                 // print('Color del proyecto: $cardColorDecimal');
 
-
                 if (bannerChanged == true) {
                   var _projectBanner = await uploadFile();
 
@@ -506,8 +527,16 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   });
                 }
 
+                if (bannerChangedFromStorage == true) {
+                  var _projectBannerFromStorage = await uploadFile();
+
+                  setState(() {
+                    projectBanner = _projectBannerFromStorage;
+                  });
+                }
+
                 addDocument(
-                    cardColorDecimal!,
+                    cardColorDecimal,
                     projectBanner,
                     projectDescription!,
                     projectLabelsListEmpty,

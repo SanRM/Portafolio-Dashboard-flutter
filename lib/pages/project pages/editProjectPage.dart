@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery_image_selector.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
@@ -66,6 +67,8 @@ class _EditProjectPageState extends State<EditProjectPage> {
   bool? bannerChanged;
 
   File? ImageLocalPath;
+
+  String imageSelected = '';
 
   initState() {
     super.initState();
@@ -476,9 +479,25 @@ class _EditProjectPageState extends State<EditProjectPage> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15),
                         child: FilledButton.icon(
-                          onPressed: () {},
+                          onPressed: () async {
+                            imageSelected = await Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return GaleryImageSelector();
+                                },
+                              ),
+                            );
+
+                            setState(() {
+                              ImageLocalPath == null;
+                              projectBanner = imageSelected;
+                            });
+
+                            print(imageSelected);
+                          },
                           icon: Icon(Icons.image),
-                          label: Text('Galeria'),
+                          label: Text('Galería'),
                         ),
                       ),
                     ],

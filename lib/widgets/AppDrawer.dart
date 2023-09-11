@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
 import 'package:portafolio_dashboard_flutter/pages/Home.dart';
-import 'package:portafolio_dashboard_flutter/pages/galery/Galery.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery_page.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -41,20 +41,27 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
                   //Navigator.pop(context); // Cierra el cajón lateral.
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Home();
-                  },));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return Home();
+                    },
+                  ));
                 },
               ),
               ListTile(
                 leading: Icon(Icons.image),
-                title: Text('Galeria'),
+                title: Text('Galería'),
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
                   //Navigator.pop(context); // Cierra el cajón lateral.
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return GaleryPage();
-                  },));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) {
+                        return GaleryPage();
+                      },
+                    ),
+                  );
                 },
               ),
             ],

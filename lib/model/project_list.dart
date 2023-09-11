@@ -24,7 +24,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
 
     for (var i = 0; i < dataLength!; i++) {
       // print('');
-      // print('project $i: ${data?[i]}');
+      print('project $i: ${data?[i]}');
       // print('');
     }
 
@@ -93,8 +93,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
                             border: Border.all(width: 2, color: textColor)),
                         child: ClipRRect(
                             borderRadius: BorderRadius.circular(10),
-                            child: Image.network(
-                                'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20')))
+                            child: Image.network('https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20')))
                     : Container(
                         decoration: BoxDecoration(
                             color: projectCardColorTypeColor,
