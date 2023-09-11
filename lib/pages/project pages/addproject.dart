@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:portafolio_dashboard_flutter/services/file_picker.dart';
+import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class AddProjectPage extends StatefulWidget {
@@ -202,6 +202,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   Padding(
                     padding: const EdgeInsets.only(right: 15, left: 15),
                     child: TextFormField(
+                      
                       onChanged: (value) {
                         setState(() {
                           projectTitle = value;
@@ -399,13 +400,14 @@ class _AddProjectPageState extends State<AddProjectPage> {
                             selectedFile = await selectFile();
 
                             if (selectedFile != null) {
-                              final imageLocalPath =
-                                  File(selectedFile!.paths[0]!);
+                              final imageLocalPath = File(selectedFile!.paths[0]!);
 
-                              setState(() {
-                                bannerChanged = true;
-                                ImageLocalPath = imageLocalPath;
-                              });
+                              setState(
+                                () {
+                                  bannerChanged = true;
+                                  ImageLocalPath = imageLocalPath;
+                                },
+                              );
                             }
                           },
                           icon: Icon(Icons.file_upload_outlined),
@@ -485,7 +487,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
               height: 20,
             ),
             FilledButton.tonalIcon(
-              onPressed: () {
+              onPressed: () async {
                 FormKey.currentState?.save();
 
                 // print('Titulo del proyecto: $projectTitle');
@@ -494,6 +496,15 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 // print('Labels del proyecto: $projectLabelsListEmpty');
                 // print('Botones del proyecto (Map): $buttonsListFinished');
                 // print('Color del proyecto: $cardColorDecimal');
+
+
+                if (bannerChanged == true) {
+                  var _projectBanner = await uploadFile();
+
+                  setState(() {
+                    projectBanner = _projectBanner;
+                  });
+                }
 
                 addDocument(
                     cardColorDecimal!,

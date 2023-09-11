@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:portafolio_dashboard_flutter/services/file_picker.dart';
+import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class EditProjectPage extends StatefulWidget {
