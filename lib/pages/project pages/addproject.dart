@@ -179,7 +179,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
   Color cardColor = Colors.white;
   int cardColorDecimal = 16777215;
 
-  String imageSelected = '';
+  String? imageSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -433,15 +433,17 @@ class _AddProjectPageState extends State<AddProjectPage> {
                               ),
                             );
 
-                            setState(() {
-                              ImageLocalPath == null;
-                              projectBanner = imageSelected;
-                            });
+                            if (imageSelected != null) {
+                              setState(() {
+                                ImageLocalPath == null;
+                                projectBanner = imageSelected!;
+                              });
+                            }
 
                             print(imageSelected);
                           },
                           icon: Icon(Icons.image),
-                          label: Text('Galería'),
+                          label: Text('Galeria'),
                         ),
                       ),
                     ],

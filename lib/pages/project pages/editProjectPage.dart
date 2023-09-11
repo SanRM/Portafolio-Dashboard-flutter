@@ -68,7 +68,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
 
   File? ImageLocalPath;
 
-  String imageSelected = '';
+  String? imageSelected;
 
   initState() {
     super.initState();
@@ -488,11 +488,13 @@ class _EditProjectPageState extends State<EditProjectPage> {
                                 },
                               ),
                             );
-
-                            setState(() {
-                              ImageLocalPath == null;
-                              projectBanner = imageSelected;
-                            });
+                            
+                            if (imageSelected != null) {
+                              setState(() {
+                                ImageLocalPath == null;
+                                projectBanner = imageSelected!;
+                              });
+                            }
 
                             print(imageSelected);
                           },
