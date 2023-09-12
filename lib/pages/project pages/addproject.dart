@@ -440,7 +440,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                               });
                             }
 
-                            print(imageSelected);
+                            //print(imageSelected);
                           },
                           icon: Icon(Icons.image),
                           label: Text('Galeria'),

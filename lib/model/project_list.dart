@@ -24,7 +24,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
 
     for (var i = 0; i < dataLength!; i++) {
       // print('');
-      print('project $i: ${data?[i]}');
+      //print('project $i: ${data?[i]}');
       // print('');
     }
 

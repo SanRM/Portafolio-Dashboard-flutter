@@ -46,6 +46,26 @@ Future<List> getWhiteList() async {
 
 }
 
+Future<void> updateProjectBanner(String projectID, String projectBanner) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+    DocumentReference docRef = FirebaseFirestore.instance.collection('Lista de proyectos').doc(projectID);
+
+    Map<String, dynamic> conversion = {
+      "projectBanner": projectBanner,
+    };
+
+    print(conversion);
+
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    await docRef.set(conversion, SetOptions(merge: true));
+
+    print('Documento editado con éxito');
+  } catch (error) {
+    print('Error al editar el documento: $error');
+  }
+}
+
 Future<void> updateDocument(String projectID, int cardBgColor, String projectBanner, String projectDescription, List projectLabels, List projectLinks, String projectTitle) async {
   try {
     // Obtiene una referencia al documento que deseas editar

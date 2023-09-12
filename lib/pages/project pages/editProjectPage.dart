@@ -496,7 +496,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                               });
                             }
 
-                            print(imageSelected);
+                            //print(imageSelected);
                           },
                           icon: Icon(Icons.image),
                           label: Text('Galería'),
