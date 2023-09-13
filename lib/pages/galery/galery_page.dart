@@ -46,7 +46,7 @@ class _GaleryPageState extends State<GaleryPage> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          Navigator.popAndPushNamed(context, '/');
+          Navigator.popAndPushNamed(context, '/Galery');
         },
         child: SingleChildScrollView(
           child: Padding(

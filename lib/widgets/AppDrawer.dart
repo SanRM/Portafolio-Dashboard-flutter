@@ -70,11 +70,14 @@ class _AppDrawerState extends State<AppDrawer> {
             padding: const EdgeInsets.only(right: 20, left: 20),
             child: FilledButton.icon(
               onPressed: () async {
-                Navigator.pop(context);
+
                 await widget.authService.signOutWithGoogle();
+                
                 setState(() {
                   userProfile.setUser = authService.currentUser;
                 });
+
+                Navigator.pop(context);
               },
               icon: Icon(Icons.logout),
               label: Text('Cerrar sesión'),

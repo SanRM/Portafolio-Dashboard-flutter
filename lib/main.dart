@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         '/Galery': (context) => GaleryPage(),
       },
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Portafolio Dashboard - Santiago Rodriguez Morales',
       home: Scaffold(
         body: Home(),
       ),

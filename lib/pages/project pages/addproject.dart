@@ -232,8 +232,10 @@ class _AddProjectPageState extends State<AddProjectPage> {
                           projectDescription = value;
                         });
                       },
+                      maxLines: 5,
                       initialValue: projectDescription,
                       decoration: InputDecoration(
+                        alignLabelWithHint: true,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.black)),
