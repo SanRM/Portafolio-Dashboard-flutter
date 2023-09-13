@@ -15,7 +15,7 @@ selectFile() async {
 }
 
 uploadFile() async {
-  String? ImageUrl;
+  String? imageUrl;
 
   if (selectedFile != null) {
     for (var i = 0; i < selectedFile!.count; i++) {
@@ -27,10 +27,10 @@ uploadFile() async {
 
       final snapshot = await uploadTask!.whenComplete(() {});
 
-      ImageUrl = await snapshot.ref.getDownloadURL();
+      imageUrl = await snapshot.ref.getDownloadURL();
     }
 
-    return ImageUrl;
+    return imageUrl;
   }
 }
 
@@ -47,7 +47,7 @@ Future<List<Reference>> getFileFirestoreName() async {
     }
   } catch (e) {
     // Maneja cualquier error que pueda ocurrir al obtener las referencias de las imágenes.
-    print('Error al obtener las referencias de las imágenes: $e');
+    //print('Error al obtener las referencias de las imágenes: $e');
   }
 
   return imageReferences;
@@ -64,10 +64,10 @@ Future<void> removeImage(String imageUrl) async {
     // Elimina la imagen.
     await imageReference.delete();
 
-    print('Imagen eliminada exitosamente: $imageUrl');
+    //print('Imagen eliminada exitosamente: $imageUrl');
   } catch (e) {
     // Maneja cualquier error que pueda ocurrir al eliminar la imagen.
-    print('Error al eliminar la imagen: $e');
+    //print('Error al eliminar la imagen: $e');
   }
 }
 
@@ -86,7 +86,7 @@ Future<List<String>> getAllImageUrls() async {
     }
   } catch (e) {
     // Maneja cualquier error que pueda ocurrir al obtener las imágenes.
-    print('Error al obtener las imágenes: $e');
+    //print('Error al obtener las imágenes: $e');
   }
 
   return downloadUrls;

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/image_utilities_selector.dart';
 
 class PortafolioImagesSelector extends StatefulWidget {
-  PortafolioImagesSelector({super.key, required this.snapshot});
+  const PortafolioImagesSelector({super.key, required this.snapshot});
 
   final AsyncSnapshot<List>? snapshot;
 

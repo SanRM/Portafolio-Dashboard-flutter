@@ -19,22 +19,22 @@ class _HomeState extends State<Home> {
   void _showApprovedSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         dismissDirection: DismissDirection.startToEnd,
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 5),
-        backgroundColor: Color.fromARGB(255, 75, 228, 126),
+        duration: const Duration(seconds: 5),
+        backgroundColor: const Color.fromARGB(255, 75, 228, 126),
         showCloseIcon: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          side: BorderSide(width: 2, color: Color.fromARGB(255, 6, 196, 91)),
+          side: const BorderSide(width: 2, color: Color.fromARGB(255, 6, 196, 91)),
         ),
         content: Stack(
           alignment: Alignment.center,
           children: [
             Container(
               alignment: Alignment.center,
-              child: Text(
+              child: const Text(
                 '¡Sesión iniciada correctamente!',
                 style: TextStyle(
                   //color: primaryBlack,
@@ -53,22 +53,22 @@ class _HomeState extends State<Home> {
   void _showRejectedSnackBar() {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-        margin: EdgeInsets.symmetric(horizontal: 25, vertical: 25),
+        margin: const EdgeInsets.symmetric(horizontal: 25, vertical: 25),
         dismissDirection: DismissDirection.startToEnd,
         behavior: SnackBarBehavior.floating,
-        duration: Duration(seconds: 5),
-        backgroundColor: Color.fromARGB(255, 255, 110, 166),
+        duration: const Duration(seconds: 5),
+        backgroundColor: const Color.fromARGB(255, 255, 110, 166),
         showCloseIcon: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          side: BorderSide(width: 2, color: Color.fromARGB(255, 196, 6, 63)),
+          side: const BorderSide(width: 2, color: Color.fromARGB(255, 196, 6, 63)),
         ),
         content: Stack(
           alignment: Alignment.center,
           children: [
             Container(
               alignment: Alignment.center,
-              child: Text(
+              child: const Text(
                 '¡No se pudo iniciar la sesión!',
                 style: TextStyle(
                   fontSize: 20,
@@ -100,17 +100,17 @@ class _HomeState extends State<Home> {
   _buildLoginScreen() {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Iniciar sesión'),
+        title: const Text('Iniciar sesión'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(40),
         child: ListTile(
-          tileColor: Color.fromARGB(255, 236, 245, 255),
+          tileColor: const Color.fromARGB(255, 236, 245, 255),
           leading: Padding(
             padding: const EdgeInsets.all(15),
             child: Image.asset('assets/logo.png'),
           ),
-          title: Text(
+          title: const Text(
             'Google sign in',
             style: TextStyle(color: Color.fromARGB(255, 0, 51, 114)),
           ),
@@ -133,12 +133,12 @@ class _HomeState extends State<Home> {
   _buildLoggedInScreen() {
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.add),
-        label: Text('Crear proyecto'),
+        icon: const Icon(Icons.add),
+        label: const Text('Crear proyecto'),
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return AddProjectPage();
+              return const AddProjectPage();
             },
           ));
         },
@@ -156,8 +156,8 @@ class _HomeState extends State<Home> {
             Column(
               children: [
                 ListTile(
-                  leading: Icon(Icons.edit_note_sharp),
-                  title: Text('Editor de proyectos'),
+                  leading: const Icon(Icons.edit_note_sharp),
+                  title: const Text('Editor de proyectos'),
                   onTap: () {
                     // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
                     Navigator.pop(context); // Cierra el cajón lateral.
@@ -165,8 +165,8 @@ class _HomeState extends State<Home> {
                   },
                 ),
                 ListTile(
-                  leading: Icon(Icons.image),
-                  title: Text('Galeria'),
+                  leading: const Icon(Icons.image),
+                  title: const Text('Galeria'),
                   onTap: () {
                     // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
                     //Navigator.pop(context); // Cierra el cajón lateral.
@@ -185,8 +185,8 @@ class _HomeState extends State<Home> {
                     _userProfile.setUser = _authService.currentUser;
                   });
                 },
-                icon: Icon(Icons.logout),
-                label: Text('Cerrar sesión'),
+                icon: const Icon(Icons.logout),
+                label: const Text('Cerrar sesión'),
               ),
             ),
             // Agrega más elementos de lista según tus necesidades.
@@ -195,7 +195,7 @@ class _HomeState extends State<Home> {
       ),
       // El c
       appBar: AppBar(
-        title: Text('Lista de proyectos'),
+        title: const Text('Lista de proyectos'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -207,23 +207,21 @@ class _HomeState extends State<Home> {
             child: Center(
               child: Column(
                 children: [
-                  Container(
-                    child: FutureBuilder(
-                      future: getProjects(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          //print(snapshot.data);
-                          return PortafolioProjects(snapshot: snapshot);
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              color: Color.fromARGB(137, 0, 141, 151),
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                  FutureBuilder(
+                    future: getProjects(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        //print(snapshot.data);
+                        return PortafolioProjects(snapshot: snapshot);
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Color.fromARGB(137, 0, 141, 151),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

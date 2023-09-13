@@ -7,10 +7,10 @@ class FirebaseUserProfile {
   String? _userImageUrl;
 
   set setUser(User? user) {
-    _userId = user != null ? user.uid : null;
-    _userName = user != null ? user.displayName : null;
-    _userEmail = user != null ? user.email : null;
-    _userImageUrl = user != null ? user.photoURL : null;
+    _userId = user?.uid;
+    _userName = user?.displayName;
+    _userEmail = user?.email;
+    _userImageUrl = user?.photoURL;
   }
 
   String? get userId => _userId;

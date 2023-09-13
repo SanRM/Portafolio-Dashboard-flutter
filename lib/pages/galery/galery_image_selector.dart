@@ -37,23 +37,21 @@ class _GaleryImageSelectorState extends State<GaleryImageSelector> {
             child: Center(
               child: Column(
                 children: [
-                  Container(
-                    child: FutureBuilder(
-                      future: getAllImageUrls(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          //print(snapshot.data);
-                          return PortafolioImagesSelector(snapshot: snapshot);
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              color: Color.fromARGB(137, 0, 141, 151),
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                  FutureBuilder(
+                    future: getAllImageUrls(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        //print(snapshot.data);
+                        return PortafolioImagesSelector(snapshot: snapshot);
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Color.fromARGB(137, 0, 141, 151),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

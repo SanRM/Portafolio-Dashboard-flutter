@@ -32,10 +32,10 @@ class GoogleAuthService {
       var whiteList = await getWhiteList();
       List whiteListDocumento = whiteList[0]['White list'];
 
-      print('');
-      print("Credenciales que intentaron iniciar sesión: ${userCredential.user?.email}");
+      // print('');
+      // print("Credenciales que intentaron iniciar sesión: ${userCredential.user?.email}");
       for (var i = 0; i < whiteListDocumento.length; i++) {
-        print(whiteListDocumento[i]);
+        //print(whiteListDocumento[i]);
         if (userCredential.user?.email == whiteListDocumento[i]) {
           return await _firebaseAuth.signInWithCredential(credential);
         }
@@ -47,7 +47,7 @@ class GoogleAuthService {
 
       //return await _firebaseAuth.signInWithCredential(credential);
     } catch (error) {
-      print('Error en el metodo signInWithGoogle: ${error.toString()}');
+      //print('Error en el metodo signInWithGoogle: ${error.toString()}');
       return null;
     }
   }
@@ -57,7 +57,7 @@ class GoogleAuthService {
       await _googleSignIn.signOut();
       await _firebaseAuth.signOut();
     } catch (error) {
-      print('Error en el metodo signOutWithGoogle: ${error.toString()}');
+      //print('Error en el metodo signOutWithGoogle: ${error.toString()}');
     }
   }
 }

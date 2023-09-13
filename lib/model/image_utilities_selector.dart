@@ -4,7 +4,7 @@ class ImageManagerSelector extends StatefulWidget {
   final String imageSelected;
 
   const ImageManagerSelector(
-      {required this.imageSelected});
+      {super.key, required this.imageSelected});
 
   @override
   State<ImageManagerSelector> createState() => _ImageManagerSelectorState(
@@ -24,7 +24,7 @@ class _ImageManagerSelectorState extends State<ImageManagerSelector> {
     return LayoutBuilder(
       builder: (context, constraints) {
         return AnimatedCrossFade(
-          duration: Duration(milliseconds: 1),
+          duration: const Duration(milliseconds: 1),
           crossFadeState: toggleChild
               ? CrossFadeState.showSecond
               : CrossFadeState.showFirst,
@@ -33,7 +33,7 @@ class _ImageManagerSelectorState extends State<ImageManagerSelector> {
               setState(() {
                 toggleChild = !toggleChild;
               });
-              Future.delayed(Duration(milliseconds: 250),(){
+              Future.delayed(const Duration(milliseconds: 250),(){
                 Navigator.pop(context, imageSelected);
               });
 

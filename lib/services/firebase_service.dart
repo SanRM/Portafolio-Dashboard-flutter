@@ -11,9 +11,9 @@ Future<List> getProjects() async {
 
   QuerySnapshot querySnapshot = await projecList.get();
 
-  querySnapshot.docs.forEach((documento) {
+  for (var documento in querySnapshot.docs) {
     projects.add(documento.data());
-  });
+  }
 
   return projects;
 }
@@ -25,9 +25,9 @@ Future<List> getWhiteList() async {
 
   QuerySnapshot querySnapshot = await collectionReference.get();
 
-  querySnapshot.docs.forEach((documento) {
+  for (var documento in querySnapshot.docs) {
     whiteList.add(documento.data());
-  });
+  }
 
   return whiteList;
 }
@@ -38,9 +38,9 @@ Future<List> getWhiteList() async {
 
   QuerySnapshot querySnapshot = await projecList.get();
 
-  querySnapshot.docs.forEach((element) { 
+  for (var element in querySnapshot.docs) { 
     projectsIds.add(element.id);
-  });
+  }
 
   return projectsIds;
 
@@ -55,14 +55,14 @@ Future<void> updateProjectBanner(String projectID, String projectBanner) async {
       "projectBanner": projectBanner,
     };
 
-    print(conversion);
+    //print(conversion);
 
     // Utiliza el método set con la opción merge para actualizar los campos específicos
     await docRef.set(conversion, SetOptions(merge: true));
 
-    print('Documento editado con éxito');
+    //print('Documento editado con éxito');
   } catch (error) {
-    print('Error al editar el documento: $error');
+    //print('Error al editar el documento: $error');
   }
 }
 
@@ -80,14 +80,14 @@ Future<void> updateDocument(String projectID, int cardBgColor, String projectBan
       "projectTitle" : projectTitle,
     };
 
-    print(conversion);
+    //print(conversion);
 
     // Utiliza el método set con la opción merge para actualizar los campos específicos
     await docRef.set(conversion);
 
-    print('Documento editado con éxito');
+    //print('Documento editado con éxito');
   } catch (error) {
-    print('Error al editar el documento: $error');
+    //print('Error al editar el documento: $error');
   }
 }
 
@@ -106,9 +106,9 @@ Future<void> addDocument(int cardBgColor, String projectBanner, String projectDe
     // Utiliza el método set con la opción merge para actualizar los campos específicos
     await db.collection("Lista de proyectos").add(conversion);
 
-    print('Documento creado con éxito');
+    //print('Documento creado con éxito');
   } catch (error) {
-    print('Error al crear el documento: $error');
+    //print('Error al crear el documento: $error');
   }
 }
 
@@ -120,9 +120,9 @@ Future<void> deleteDocument(String projectID) async {
 
     await docRef.delete();
 
-    print('Documento eliminado con éxito');
+    //print('Documento eliminado con éxito');
   } catch (error) {
-    print('Error al eliminado el documento: $error');
+    //print('Error al eliminado el documento: $error');
   }
 }
 

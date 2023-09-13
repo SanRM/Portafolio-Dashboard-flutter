@@ -3,7 +3,7 @@ import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
 import 'package:portafolio_dashboard_flutter/model/image_list.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
-import 'package:portafolio_dashboard_flutter/widgets/AppDrawer.dart';
+import 'package:portafolio_dashboard_flutter/widgets/app_drawer.dart';
 
 class GaleryPage extends StatefulWidget {
   const GaleryPage({super.key});
@@ -27,11 +27,11 @@ class _GaleryPageState extends State<GaleryPage> {
     return Scaffold(
       drawer: AppDrawer(userProfile: _userProfile, authService: _authService),
       appBar: AppBar(
-        title: Text('Galería'),
+        title: const Text('Galería'),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        icon: Icon(Icons.file_upload_outlined),
-        label: Text('Subir imágen'),
+        icon: const Icon(Icons.file_upload_outlined),
+        label: const Text('Subir imágen'),
         onPressed: () async {
 
           selectedFile = await selectFile();
@@ -54,23 +54,21 @@ class _GaleryPageState extends State<GaleryPage> {
             child: Center(
               child: Column(
                 children: [
-                  Container(
-                    child: FutureBuilder(
-                      future: getAllImageUrls(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          //print(snapshot.data);
-                          return PortafolioImages(snapshot: snapshot);
-                        } else {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              strokeWidth: 3,
-                              color: Color.fromARGB(137, 0, 141, 151),
-                            ),
-                          );
-                        }
-                      },
-                    ),
+                  FutureBuilder(
+                    future: getAllImageUrls(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        //print(snapshot.data);
+                        return PortafolioImages(snapshot: snapshot);
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 3,
+                            color: Color.fromARGB(137, 0, 141, 151),
+                          ),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

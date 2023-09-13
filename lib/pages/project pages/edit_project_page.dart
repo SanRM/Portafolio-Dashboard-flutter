@@ -1,6 +1,7 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:portafolio_dashboard_flutter/pages/galery/galery_image_selector.dart';
@@ -66,10 +67,11 @@ class _EditProjectPageState extends State<EditProjectPage> {
 
   bool? bannerChanged;
 
-  File? ImageLocalPath;
+  File? imageLocalPathFinal;
 
   String? imageSelected;
 
+  @override
   initState() {
     super.initState();
 
@@ -79,7 +81,6 @@ class _EditProjectPageState extends State<EditProjectPage> {
 
   @override
   Widget build(BuildContext context) {
-    //10. TODO: Editar proyecto seleccionado por id
     //print(projectID);
 
     removeLabel() {
@@ -97,13 +98,13 @@ class _EditProjectPageState extends State<EditProjectPage> {
     List projectLabelsList = projectLabels?.toList() ?? [];
     List projectLabelsListEmpty = [];
 
-    GlobalKey<FormState> FormKey = GlobalKey<FormState>();
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     ListView getFields() {
       return ListView.builder(
         shrinkWrap: true,
         itemCount: fieldCount,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(15),
@@ -119,7 +120,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
-                  borderSide: BorderSide(color: Colors.black),
+                  borderSide: const BorderSide(color: Colors.black),
                 ),
                 label: Text('Etiqueta ${index + 1}'),
               ),
@@ -157,7 +158,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
       return ListView.builder(
         shrinkWrap: true,
         itemCount: buttonCount,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.all(15),
@@ -172,7 +173,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                   child: Wrap(
                     alignment: WrapAlignment.spaceAround,
                     children: [
-                      Container(
+                      SizedBox(
                         width: containerWidth / 2.2,
                         child: TextFormField(
                           onSaved: (value) {
@@ -193,15 +194,15 @@ class _EditProjectPageState extends State<EditProjectPage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.black)),
+                                borderSide: const BorderSide(color: Colors.black)),
                             label: Text('Nombre del botón ${index + 1}'),
                           ),
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 15,
                       ),
-                      Container(
+                      SizedBox(
                         width: containerWidth / 2.2,
                         child: TextFormField(
                           onSaved: (value) {
@@ -228,7 +229,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(color: Colors.black)),
+                                borderSide: const BorderSide(color: Colors.black)),
                             label: Text('Url ${index + 1}'),
                           ),
                         ),
@@ -243,25 +244,24 @@ class _EditProjectPageState extends State<EditProjectPage> {
       );
     }
 
-    ;
 
     //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Editor de proyectos'),
+        title: const Text('Editor de proyectos'),
       ),
       body: Center(
           child: Container(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         alignment: Alignment.center,
         child: ListView(
           children: [
             Card(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
+                  const Padding(
+                    padding: EdgeInsets.all(15),
                     child: Text(
                       'Información principal',
                       style: TextStyle(fontSize: 20),
@@ -279,12 +279,12 @@ class _EditProjectPageState extends State<EditProjectPage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.black)),
-                        label: Text('Titulo'),
+                            borderSide: const BorderSide(color: Colors.black)),
+                        label: const Text('Titulo'),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Padding(
@@ -301,8 +301,8 @@ class _EditProjectPageState extends State<EditProjectPage> {
                         alignLabelWithHint: true,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.black)),
-                        label: Text('Descripción'),
+                            borderSide: const BorderSide(color: Colors.black)),
+                        label: const Text('Descripción'),
                       ),
                     ),
                   ),
@@ -313,7 +313,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
               height: 20,
             ),
             Form(
-              key: FormKey,
+              key: formKey,
               child: Column(
                 children: [
                   Card(
@@ -334,9 +334,9 @@ class _EditProjectPageState extends State<EditProjectPage> {
                                 onPressed: () {
                                   removeLabel();
                                 },
-                                icon: Icon(Icons.remove_circle),
-                                label: Text('Eliminar'),
-                                style: ButtonStyle(),
+                                icon: const Icon(Icons.remove_circle),
+                                label: const Text('Eliminar'),
+                                style: const ButtonStyle(),
                               ),
                             ),
                             Padding(
@@ -345,8 +345,8 @@ class _EditProjectPageState extends State<EditProjectPage> {
                                 onPressed: () {
                                   addLabel();
                                 },
-                                icon: Icon(Icons.add),
-                                label: Text('Agregar'),
+                                icon: const Icon(Icons.add),
+                                label: const Text('Agregar'),
                               ),
                             )
                           ],
@@ -354,14 +354,14 @@ class _EditProjectPageState extends State<EditProjectPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Card(
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15),
+                        const Padding(
+                          padding: EdgeInsets.all(15),
                           child: Text(
                             'Botones del proyecto',
                             style: TextStyle(fontSize: 20),
@@ -377,9 +377,9 @@ class _EditProjectPageState extends State<EditProjectPage> {
                                 onPressed: () {
                                   removeButton();
                                 },
-                                icon: Icon(Icons.remove_circle),
-                                label: Text('Eliminar'),
-                                style: ButtonStyle(),
+                                icon: const Icon(Icons.remove_circle),
+                                label: const Text('Eliminar'),
+                                style: const ButtonStyle(),
                               ),
                             ),
                             Padding(
@@ -388,8 +388,8 @@ class _EditProjectPageState extends State<EditProjectPage> {
                                 onPressed: () {
                                   addButton();
                                 },
-                                icon: Icon(Icons.add),
-                                label: Text('Agregar'),
+                                icon: const Icon(Icons.add),
+                                label: const Text('Agregar'),
                               ),
                             )
                           ],
@@ -400,15 +400,15 @@ class _EditProjectPageState extends State<EditProjectPage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Card(
               child: Column(
                 children: [
-                  Padding(
+                  const Padding(
                     padding:
-                        const EdgeInsets.only(top: 15, right: 15, left: 15),
+                        EdgeInsets.only(top: 15, right: 15, left: 15),
                     child: Text(
                       'Banner',
                       style: TextStyle(fontSize: 20),
@@ -427,18 +427,18 @@ class _EditProjectPageState extends State<EditProjectPage> {
                       child: projectBanner == 'default'
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: ImageLocalPath == null
+                              child: imageLocalPathFinal == null
                                   ? Image.network(
                                       'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20',
                                       fit: BoxFit.cover)
-                                  : Image.file(ImageLocalPath!,
+                                  : Image.file(imageLocalPathFinal!,
                                       fit: BoxFit.cover))
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: ImageLocalPath == null
+                              child: imageLocalPathFinal == null
                                   ? Image.network(projectBanner!,
                                       fit: BoxFit.cover)
-                                  : Image.file(ImageLocalPath!,
+                                  : Image.file(imageLocalPathFinal!,
                                       fit: BoxFit.cover)),
                     ),
                   ),
@@ -451,11 +451,11 @@ class _EditProjectPageState extends State<EditProjectPage> {
                           onPressed: () {
                             setState(() {
                               bannerChanged = false;
-                              ImageLocalPath = null;
+                              imageLocalPathFinal = null;
                               selectedFile = null;
                             });
                           },
-                          icon: Icon(Icons.remove_circle),
+                          icon: const Icon(Icons.remove_circle),
                         ),
                       ),
                       Padding(
@@ -470,12 +470,12 @@ class _EditProjectPageState extends State<EditProjectPage> {
 
                               setState(() {
                                 bannerChanged = true;
-                                ImageLocalPath = imageLocalPath;
+                                imageLocalPathFinal = imageLocalPath;
                               });
                             }
                           },
-                          icon: Icon(Icons.file_upload_outlined),
-                          label: Text('Subir'),
+                          icon: const Icon(Icons.file_upload_outlined),
+                          label: const Text('Subir'),
                         ),
                       ),
                       Padding(
@@ -486,22 +486,22 @@ class _EditProjectPageState extends State<EditProjectPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return GaleryImageSelector();
+                                  return const GaleryImageSelector();
                                 },
                               ),
                             );
                             
                             if (imageSelected != null) {
                               setState(() {
-                                ImageLocalPath == null;
+                                imageLocalPathFinal == null;
                                 projectBanner = imageSelected!;
                               });
                             }
 
                             //print(imageSelected);
                           },
-                          icon: Icon(Icons.image),
-                          label: Text('Galería'),
+                          icon: const Icon(Icons.image),
+                          label: const Text('Galería'),
                         ),
                       ),
                     ],
@@ -509,14 +509,14 @@ class _EditProjectPageState extends State<EditProjectPage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Card(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
+                  const Padding(
+                    padding: EdgeInsets.all(15),
                     child: Text(
                       'Seleccionar color del proyecto',
                       style: TextStyle(fontSize: 20),
@@ -552,20 +552,19 @@ class _EditProjectPageState extends State<EditProjectPage> {
                             mostrarPrevisualizacion = true;
                           });
                         }
-                        ;
                       },
                       icon: mostrarPrevisualizacion == false
-                          ? Icon(Icons.remove_red_eye_outlined)
-                          : Icon(Icons.remove_red_eye),
+                          ? const Icon(Icons.remove_red_eye_outlined)
+                          : const Icon(Icons.remove_red_eye),
                       label: mostrarPrevisualizacion == false
-                          ? Text('Mostrar previsualización')
-                          : Text('Ocultar previsualización'),
+                          ? const Text('Mostrar previsualización')
+                          : const Text('Ocultar previsualización'),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             FilledButton.tonalIcon(
@@ -574,13 +573,13 @@ class _EditProjectPageState extends State<EditProjectPage> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: Text('Confirmar eliminación del proyecto'),
+                      title: const Text('Confirmar eliminación del proyecto'),
                       actions: [
                         FilledButton.tonal(
                           onPressed: () {
                             Navigator.pop(context);
                           },
-                          child: Text('Cancelar'),
+                          child: const Text('Cancelar'),
                         ),
                         FilledButton(
                           onPressed: () {
@@ -588,7 +587,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                             Navigator.pop(context);
                             Navigator.popAndPushNamed(context, '/');
                           },
-                          child: Text('Confirmar'),
+                          child: const Text('Confirmar'),
                         ),
                       ],
                     );
@@ -598,15 +597,15 @@ class _EditProjectPageState extends State<EditProjectPage> {
                 // Navigator.pop(context);
                 // Navigator.popAndPushNamed(context, '/');
               },
-              icon: Icon(Icons.delete),
-              label: Text('Eliminar'),
+              icon: const Icon(Icons.delete),
+              label: const Text('Eliminar'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             FilledButton.icon(
               onPressed: () async {
-                FormKey.currentState?.save();
+                formKey.currentState?.save();
 
                 // print('Titulo del proyecto: $projectTitle');
                 // print('Descripción del proyecto: $projectDescription');
@@ -616,10 +615,10 @@ class _EditProjectPageState extends State<EditProjectPage> {
                 // print('Color del proyecto: $cardColorDecimal');
 
                 if (bannerChanged == true) {
-                  var _projectBanner = await uploadFile();
+                  var projectBannerTemp = await uploadFile();
 
                   setState(() {
-                    projectBanner = _projectBanner;
+                    projectBanner = projectBannerTemp;
                   });
                 }
 
@@ -636,8 +635,8 @@ class _EditProjectPageState extends State<EditProjectPage> {
                 Navigator.pop(context);
                 Navigator.popAndPushNamed(context, '/');
               },
-              icon: Icon(Icons.check),
-              label: Text('Guardar'),
+              icon: const Icon(Icons.check),
+              label: const Text('Guardar'),
             ),
           ],
         ),

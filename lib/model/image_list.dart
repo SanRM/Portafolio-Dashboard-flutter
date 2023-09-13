@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/image_utilities.dart';
 
 class PortafolioImages extends StatefulWidget {
-  PortafolioImages({super.key, required this.snapshot});
+  const PortafolioImages({super.key, required this.snapshot});
 
   final AsyncSnapshot<List>? snapshot;
 
   @override
-  State<PortafolioImages> createState() =>
-      _PortafolioImagesState(snapshot: snapshot);
+  State<PortafolioImages> createState() => _PortafolioImagesState(snapshot: snapshot);
 }
 
 class _PortafolioImagesState extends State<PortafolioImages> {

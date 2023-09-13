@@ -5,14 +5,13 @@ import 'package:portafolio_dashboard_flutter/pages/galery/galery_page.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 
 class AppDrawer extends StatefulWidget {
-  AppDrawer({required this.userProfile, required this.authService});
+  const AppDrawer({super.key, required this.userProfile, required this.authService});
 
   final FirebaseUserProfile userProfile;
   final GoogleAuthService authService;
 
   @override
-  State<AppDrawer> createState() =>
-      _AppDrawerState(userProfile: userProfile, authService: authService);
+  State<AppDrawer> createState() => _AppDrawerState(userProfile: userProfile, authService: authService);
 }
 
 class _AppDrawerState extends State<AppDrawer> {
@@ -36,21 +35,21 @@ class _AppDrawerState extends State<AppDrawer> {
           Column(
             children: [
               ListTile(
-                leading: Icon(Icons.edit_note_sharp),
-                title: Text('Editor de proyectos'),
+                leading: const Icon(Icons.edit_note_sharp),
+                title: const Text('Editor de proyectos'),
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
                   //Navigator.pop(context); // Cierra el cajón lateral.
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return Home();
+                      return const Home();
                     },
                   ));
                 },
               ),
               ListTile(
-                leading: Icon(Icons.image),
-                title: Text('Galería'),
+                leading: const Icon(Icons.image),
+                title: const Text('Galería'),
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
                   //Navigator.pop(context); // Cierra el cajón lateral.
@@ -58,7 +57,7 @@ class _AppDrawerState extends State<AppDrawer> {
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return GaleryPage();
+                        return const GaleryPage();
                       },
                     ),
                   );
@@ -79,8 +78,8 @@ class _AppDrawerState extends State<AppDrawer> {
 
                 Navigator.pop(context);
               },
-              icon: Icon(Icons.logout),
-              label: Text('Cerrar sesión'),
+              icon: const Icon(Icons.logout),
+              label: const Text('Cerrar sesión'),
             ),
           ),
           // Agrega más elementos de lista según tus necesidades.

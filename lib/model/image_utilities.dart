@@ -53,7 +53,7 @@ class _ImageManagerState extends State<ImageManager> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: Text('Confirmar eliminación de imágen'),
+                        title: const Text('Confirmar eliminación de imágen'),
                         content: Container(
                           decoration: BoxDecoration(
                               color: Theme.of(context)
@@ -76,7 +76,7 @@ class _ImageManagerState extends State<ImageManager> {
                             onPressed: () {
                               Navigator.pop(context);
                             },
-                            child: Text('Cancelar'),
+                            child: const Text('Cancelar'),
                           ),
                           FilledButton(
                             onPressed: () async {
@@ -111,14 +111,14 @@ class _ImageManagerState extends State<ImageManager> {
                               Navigator.pop(context);
                               Navigator.popAndPushNamed(context, '/Galery');
                             },
-                            child: Text('Confirmar'),
+                            child: const Text('Confirmar'),
                           ),
                         ],
                       );
                     },
                   );
                 },
-                icon: Icon(Icons.remove_circle),
+                icon: const Icon(Icons.remove_circle),
                 color: Colors.black.withOpacity(0.7),
               ),
             )

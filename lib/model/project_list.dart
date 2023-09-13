@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/pages/project%20pages/editProjectPage.dart';
+import 'package:portafolio_dashboard_flutter/pages/project%20pages/edit_project_page.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class PortafolioProjects extends StatefulWidget {
-  PortafolioProjects({super.key, required this.snapshot});
+  const PortafolioProjects({super.key, required this.snapshot});
 
   final AsyncSnapshot<List>? snapshot;
 
@@ -34,7 +34,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
         var projectsID = snapshot.data;
 
         return ListView.builder(
-          physics: NeverScrollableScrollPhysics(),
+          physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           itemCount: dataLength,
           //padding: EdgeInsets.all(20),
@@ -66,7 +66,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
               child: ListTile(
-                splashColor: Color.fromARGB(68, 255, 255, 255),
+                splashColor: const Color.fromARGB(68, 255, 255, 255),
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
@@ -123,7 +123,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
                       style: TextStyle(color: textColor, fontSize: 15),
                     ),
                     ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       itemCount: linksCount,
                       shrinkWrap: true,
                       itemBuilder: (context, index) {

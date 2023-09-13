@@ -18,7 +18,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
   bool? bannerChanged;
   bool? bannerChangedFromStorage;
-  File? ImageLocalPath;
+  File? finalImageLocalPath;
   bool mostrarPrevisualizacion = true;
 
   removeLabel() {
@@ -35,13 +35,13 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
   List projectLabelsListEmpty = [];
 
-  GlobalKey<FormState> FormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   ListView getFields() {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: fieldCount,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(15),
@@ -54,7 +54,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: BorderSide(color: Colors.black),
+                borderSide: const BorderSide(color: Colors.black),
               ),
               label: Text('Etiqueta ${index + 1}'),
             ),
@@ -92,7 +92,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: buttonCount,
-      physics: NeverScrollableScrollPhysics(),
+      physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         return Padding(
           padding: const EdgeInsets.all(15),
@@ -107,7 +107,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 child: Wrap(
                   alignment: WrapAlignment.spaceAround,
                   children: [
-                    Container(
+                    SizedBox(
                       width: containerWidth / 2.2,
                       child: TextFormField(
                         onSaved: (value) {
@@ -125,15 +125,15 @@ class _AddProjectPageState extends State<AddProjectPage> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.black)),
+                              borderSide: const BorderSide(color: Colors.black)),
                           label: Text('Nombre del botón ${index + 1}'),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
-                    Container(
+                    SizedBox(
                       width: containerWidth / 2.2,
                       child: TextFormField(
                         onSaved: (value) {
@@ -157,7 +157,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Colors.black)),
+                              borderSide: const BorderSide(color: Colors.black)),
                           label: Text('Url ${index + 1}'),
                         ),
                       ),
@@ -185,19 +185,19 @@ class _AddProjectPageState extends State<AddProjectPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Creador de proyectos'),
+        title: const Text('Creador de proyectos'),
       ),
       body: Center(
           child: Container(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         alignment: Alignment.center,
         child: ListView(
           children: [
             Card(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
+                  const Padding(
+                    padding: EdgeInsets.all(15),
                     child: Text(
                       'Información principal',
                       style: TextStyle(fontSize: 20),
@@ -215,12 +215,12 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.black)),
-                        label: Text('Titulo'),
+                            borderSide: const BorderSide(color: Colors.black)),
+                        label: const Text('Titulo'),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Padding(
@@ -238,12 +238,12 @@ class _AddProjectPageState extends State<AddProjectPage> {
                         alignLabelWithHint: true,
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.black)),
-                        label: Text('Descripción'),
+                            borderSide: const BorderSide(color: Colors.black)),
+                        label: const Text('Descripción'),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                 ],
@@ -253,7 +253,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
               height: 20,
             ),
             Form(
-              key: FormKey,
+              key: formKey,
               child: Column(
                 children: [
                   Card(
@@ -274,9 +274,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                 onPressed: () {
                                   removeLabel();
                                 },
-                                icon: Icon(Icons.remove_circle),
-                                label: Text('Eliminar'),
-                                style: ButtonStyle(),
+                                icon: const Icon(Icons.remove_circle),
+                                label: const Text('Eliminar'),
+                                style: const ButtonStyle(),
                               ),
                             ),
                             Padding(
@@ -285,8 +285,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                 onPressed: () {
                                   addLabel();
                                 },
-                                icon: Icon(Icons.add),
-                                label: Text('Agregar'),
+                                icon: const Icon(Icons.add),
+                                label: const Text('Agregar'),
                               ),
                             )
                           ],
@@ -294,14 +294,14 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       ],
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Card(
                     child: Column(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(15),
+                        const Padding(
+                          padding: EdgeInsets.all(15),
                           child: Text(
                             'Botones del proyecto',
                             style: TextStyle(fontSize: 20),
@@ -317,9 +317,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                 onPressed: () {
                                   removeButton();
                                 },
-                                icon: Icon(Icons.remove_circle),
-                                label: Text('Eliminar'),
-                                style: ButtonStyle(),
+                                icon: const Icon(Icons.remove_circle),
+                                label: const Text('Eliminar'),
+                                style: const ButtonStyle(),
                               ),
                             ),
                             Padding(
@@ -328,8 +328,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                 onPressed: () {
                                   addButton();
                                 },
-                                icon: Icon(Icons.add),
-                                label: Text('Agregar'),
+                                icon: const Icon(Icons.add),
+                                label: const Text('Agregar'),
                               ),
                             )
                           ],
@@ -340,15 +340,15 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Card(
               child: Column(
                 children: [
-                  Padding(
+                  const Padding(
                     padding:
-                        const EdgeInsets.only(top: 15, right: 15, left: 15),
+                        EdgeInsets.only(top: 15, right: 15, left: 15),
                     child: Text(
                       'Banner',
                       style: TextStyle(fontSize: 20),
@@ -367,19 +367,19 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       child: projectBanner == 'default'
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: ImageLocalPath == null
+                              child: finalImageLocalPath == null
                                   ? Image.network(
                                       'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20',
                                       fit: BoxFit.cover)
-                                  : Image.file(ImageLocalPath!,
+                                  : Image.file(finalImageLocalPath!,
                                       fit: BoxFit.cover),
                             )
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: ImageLocalPath == null
+                              child: finalImageLocalPath == null
                                   ? Image.network(projectBanner,
                                       fit: BoxFit.cover)
-                                  : Image.file(ImageLocalPath!,
+                                  : Image.file(finalImageLocalPath!,
                                       fit: BoxFit.cover),
                             ),
                     ),
@@ -393,11 +393,11 @@ class _AddProjectPageState extends State<AddProjectPage> {
                           onPressed: () {
                             setState(() {
                               bannerChanged = false;
-                              ImageLocalPath = null;
+                              finalImageLocalPath = null;
                               selectedFile = null;
                             });
                           },
-                          icon: Icon(Icons.remove_circle),
+                          icon: const Icon(Icons.remove_circle),
                         ),
                       ),
                       Padding(
@@ -413,13 +413,13 @@ class _AddProjectPageState extends State<AddProjectPage> {
                               setState(
                                 () {
                                   bannerChanged = true;
-                                  ImageLocalPath = imageLocalPath;
+                                  finalImageLocalPath = imageLocalPath;
                                 },
                               );
                             }
                           },
-                          icon: Icon(Icons.file_upload_outlined),
-                          label: Text('Subir'),
+                          icon: const Icon(Icons.file_upload_outlined),
+                          label: const Text('Subir'),
                         ),
                       ),
                       Padding(
@@ -430,22 +430,22 @@ class _AddProjectPageState extends State<AddProjectPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return GaleryImageSelector();
+                                  return const GaleryImageSelector();
                                 },
                               ),
                             );
 
                             if (imageSelected != null) {
                               setState(() {
-                                ImageLocalPath == null;
+                                finalImageLocalPath == null;
                                 projectBanner = imageSelected!;
                               });
                             }
 
                             //print(imageSelected);
                           },
-                          icon: Icon(Icons.image),
-                          label: Text('Galeria'),
+                          icon: const Icon(Icons.image),
+                          label: const Text('Galeria'),
                         ),
                       ),
                     ],
@@ -453,14 +453,14 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Card(
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
+                  const Padding(
+                    padding: EdgeInsets.all(15),
                     child: Text(
                       'Seleccionar color del proyecto',
                       style: TextStyle(fontSize: 20),
@@ -496,25 +496,24 @@ class _AddProjectPageState extends State<AddProjectPage> {
                             mostrarPrevisualizacion = true;
                           });
                         }
-                        ;
                       },
                       icon: mostrarPrevisualizacion == false
-                          ? Icon(Icons.remove_red_eye_outlined)
-                          : Icon(Icons.remove_red_eye),
+                          ? const Icon(Icons.remove_red_eye_outlined)
+                          : const Icon(Icons.remove_red_eye),
                       label: mostrarPrevisualizacion == false
-                          ? Text('Mostrar previsualización')
-                          : Text('Ocultar previsualización'),
+                          ? const Text('Mostrar previsualización')
+                          : const Text('Ocultar previsualización'),
                     ),
                   ),
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             FilledButton.tonalIcon(
               onPressed: () async {
-                FormKey.currentState?.save();
+                formKey.currentState?.save();
 
                 // print('Titulo del proyecto: $projectTitle');
                 // print('Descripción del proyecto: $projectDescription');
@@ -524,18 +523,18 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 // print('Color del proyecto: $cardColorDecimal');
 
                 if (bannerChanged == true) {
-                  var _projectBanner = await uploadFile();
+                  var projectBannerTemp = await uploadFile();
 
                   setState(() {
-                    projectBanner = _projectBanner;
+                    projectBanner = projectBannerTemp;
                   });
                 }
 
                 if (bannerChangedFromStorage == true) {
-                  var _projectBannerFromStorage = await uploadFile();
+                  var projectBannerFromStorageTemp = await uploadFile();
 
                   setState(() {
-                    projectBanner = _projectBannerFromStorage;
+                    projectBanner = projectBannerFromStorageTemp;
                   });
                 }
 
@@ -551,8 +550,8 @@ class _AddProjectPageState extends State<AddProjectPage> {
                 Navigator.pop(context);
                 Navigator.popAndPushNamed(context, '/');
               },
-              icon: Icon(Icons.check),
-              label: Text('Guardar'),
+              icon: const Icon(Icons.check),
+              label: const Text('Guardar'),
             ),
           ],
         ),
