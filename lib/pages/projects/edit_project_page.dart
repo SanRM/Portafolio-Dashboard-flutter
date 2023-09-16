@@ -1,191 +1,255 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:portafolio_dashboard_flutter/pages/galery/galery_image_selector.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery%20image%20selector/galery_image_selector.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
-class AddProjectPage extends StatefulWidget {
-  const AddProjectPage({super.key});
+class EditProjectPage extends StatefulWidget {
+  final String projectID;
+  final String? projectTitle;
+  final String? projectDescription;
+  final List? projectLabels;
+  final List? projectLinks;
+  final String? projectBanner;
+  final int cardColorDecimal;
+  final Color cardColor;
+
+  const EditProjectPage(
+      {required this.projectID,
+      required this.projectTitle,
+      required this.projectDescription,
+      required this.projectLabels,
+      required this.projectLinks,
+      required this.projectBanner,
+      required this.cardColorDecimal,
+      required this.cardColor});
 
   @override
-  State<AddProjectPage> createState() => _AddProjectPageState();
+  State<EditProjectPage> createState() => _EditProjectPageState(
+      projectID: projectID,
+      projectTitle: projectTitle,
+      projectDescription: projectDescription,
+      projectLabels: projectLabels,
+      projectLinks: projectLinks,
+      projectBanner: projectBanner,
+      cardColorDecimal: cardColorDecimal,
+      cardColor: cardColor);
 }
 
-class _AddProjectPageState extends State<AddProjectPage> {
-  int fieldCount = 0;
+class _EditProjectPageState extends State<EditProjectPage> {
+  _EditProjectPageState(
+      {required this.projectID,
+      required this.projectTitle,
+      required this.projectDescription,
+      required this.projectLabels,
+      required this.projectLinks,
+      required this.projectBanner,
+      required this.cardColorDecimal,
+      required this.cardColor});
 
-  bool? bannerChanged;
-  bool? bannerChangedFromStorage;
-  File? finalImageLocalPath;
-  bool mostrarPrevisualizacion = true;
-
-  removeLabel() {
-    setState(() {
-      fieldCount -= 1;
-    });
-  }
-
-  addLabel() {
-    setState(() {
-      fieldCount += 1;
-    });
-  }
-
-  List projectLabelsListEmpty = [];
-
-  GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  ListView getFields() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: fieldCount,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(15),
-          child: TextFormField(
-            onSaved: (value) {
-              setState(() {
-                projectLabelsListEmpty.add(value);
-              });
-            },
-            decoration: InputDecoration(
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: Colors.black),
-              ),
-              label: Text('Etiqueta ${index + 1}'),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  int buttonCount = 0;
-
-  removeButton() {
-    setState(() {
-      buttonCount -= 1;
-    });
-  }
-
-  addButton() {
-    setState(() {
-      buttonCount += 1;
-    });
-  }
-
-  List buttonsListFinished = [];
-
-  List projectButtonsNameListEmpty = [];
-  Map projectButtonsNameMap = {};
-
-  List projectButtonsUrlListEmpty = [];
-  Map projectButtonsUrlMap = {};
-
-  Map mapMerged = {};
-
-  ListView getButtons() {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: buttonCount,
-      physics: const NeverScrollableScrollPhysics(),
-      itemBuilder: (context, index) {
-        return Padding(
-          padding: const EdgeInsets.all(15),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              double containerWidth = constraints.maxWidth;
-              return Container(
-                color: Theme.of(context)
-                    .colorScheme
-                    .secondaryContainer
-                    .withOpacity(0.5),
-                child: Wrap(
-                  alignment: WrapAlignment.spaceAround,
-                  children: [
-                    SizedBox(
-                      width: containerWidth / 2.2,
-                      child: TextFormField(
-                        onSaved: (value) {
-                          projectButtonsNameListEmpty.add(value);
-
-                          for (int i = 0;
-                              i < projectButtonsNameListEmpty.length;
-                              i++) {
-                            projectButtonsNameMap['name'] =
-                                projectButtonsNameListEmpty[i];
-                          }
-
-                          //print('Botones del proyecto (name map) as Map: $projectButtonsNameMap');
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.black)),
-                          label: Text('Nombre del botón ${index + 1}'),
-                        ),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    SizedBox(
-                      width: containerWidth / 2.2,
-                      child: TextFormField(
-                        onSaved: (value) {
-                          projectButtonsUrlListEmpty.add(value);
-
-                          for (int i = 0;
-                              i < projectButtonsUrlListEmpty.length;
-                              i++) {
-                            projectButtonsUrlMap['url'] =
-                                projectButtonsUrlListEmpty[i];
-                          }
-
-                          mapMerged = {
-                            ...projectButtonsNameMap,
-                            ...projectButtonsUrlMap
-                          };
-                          buttonsListFinished.add(mapMerged);
-
-                          //print('Botones del proyecto (url map) as Map: $projectButtonsUrlMap');
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.black)),
-                          label: Text('Url ${index + 1}'),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
-        );
-      },
-    );
-  }
-
+  final String projectID;
   String? projectTitle;
   String? projectDescription;
-  String projectBanner =
-      'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20';
-  Color cardColor = Colors.white;
-  int cardColorDecimal = 16777215;
+  List? projectLabels;
+  List? projectLinks;
+  String? projectBanner;
+  int cardColorDecimal;
+  Color cardColor;
+
+  int fieldCount = 0;
+  int buttonCount = 0;
+
+  bool mostrarPrevisualizacion = true;
+
+  bool? bannerChanged;
+
+  File? imageLocalPathFinal;
 
   String? imageSelected;
 
   @override
+  initState() {
+    super.initState();
+
+    fieldCount = projectLabels!.length;
+    buttonCount = projectLinks!.length;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    //print(projectID);
+
+    removeLabel() {
+      setState(() {
+        fieldCount -= 1;
+      });
+    }
+
+    addLabel() {
+      setState(() {
+        fieldCount += 1;
+      });
+    }
+
+    List projectLabelsList = projectLabels?.toList() ?? [];
+    List projectLabelsListEmpty = [];
+
+    GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+    ListView getFields() {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: fieldCount,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(15),
+            child: TextFormField(
+              onSaved: (value) {
+                setState(() {
+                  projectLabelsListEmpty.add(value);
+                });
+              },
+              initialValue: index < projectLabelsList.length
+                  ? projectLabelsList[index]
+                  : '',
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+                label: Text('Etiqueta ${index + 1}'),
+              ),
+            ),
+          );
+        },
+      );
+    }
+
+    removeButton() {
+      setState(() {
+        buttonCount -= 1;
+      });
+    }
+
+    addButton() {
+      setState(() {
+        buttonCount += 1;
+      });
+    }
+
+    List projectButtonsList = projectLinks?.toList() ?? [];
+
+    List buttonsListFinished = [];
+
+    List projectButtonsNameListEmpty = [];
+    Map projectButtonsNameMap = {};
+
+    List projectButtonsUrlListEmpty = [];
+    Map projectButtonsUrlMap = {};
+
+    Map mapMerged = {};
+
+    ListView getButtons() {
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: buttonCount,
+        physics: const NeverScrollableScrollPhysics(),
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.all(15),
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                double containerWidth = constraints.maxWidth;
+                return Container(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .secondaryContainer
+                      .withOpacity(0.5),
+                  child: Wrap(
+                    alignment: WrapAlignment.spaceAround,
+                    children: [
+                      SizedBox(
+                        width: containerWidth / 2.2,
+                        child: TextFormField(
+                          onSaved: (value) {
+                            projectButtonsNameListEmpty.add(value);
+
+                            for (int i = 0;
+                                i < projectButtonsNameListEmpty.length;
+                                i++) {
+                              projectButtonsNameMap['name'] =
+                                  projectButtonsNameListEmpty[i];
+                            }
+
+                            //print('Botones del proyecto (name map) as Map: $projectButtonsNameMap');
+                          },
+                          initialValue: index < projectButtonsList.length
+                              ? projectLinks?[index]?['name']
+                              : '',
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: Colors.black)),
+                            label: Text('Nombre del botón ${index + 1}'),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      SizedBox(
+                        width: containerWidth / 2.2,
+                        child: TextFormField(
+                          onSaved: (value) {
+                            projectButtonsUrlListEmpty.add(value);
+
+                            for (int i = 0;
+                                i < projectButtonsUrlListEmpty.length;
+                                i++) {
+                              projectButtonsUrlMap['url'] =
+                                  projectButtonsUrlListEmpty[i];
+                            }
+
+                            mapMerged = {
+                              ...projectButtonsNameMap,
+                              ...projectButtonsUrlMap
+                            };
+                            buttonsListFinished.add(mapMerged);
+
+                            //print('Botones del proyecto (url map) as Map: $projectButtonsUrlMap');
+                          },
+                          initialValue: index < projectButtonsList.length
+                              ? projectLinks?[index]?['url']
+                              : '',
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(color: Colors.black)),
+                            label: Text('Url ${index + 1}'),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          );
+        },
+      );
+    }
+
+
+    //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Creador de proyectos'),
+        title: const Text('Editor de proyectos'),
       ),
       body: Center(
           child: Container(
@@ -224,8 +288,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                     height: 20,
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.only(top: 15, right: 15, left: 15),
+                    padding: const EdgeInsets.all(15),
                     child: TextFormField(
                       onChanged: (value) {
                         setState(() {
@@ -242,9 +305,6 @@ class _AddProjectPageState extends State<AddProjectPage> {
                         label: const Text('Descripción'),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
                   ),
                 ],
               ),
@@ -270,7 +330,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
-                              child: FilledButton.icon(
+                              child: FilledButton.tonalIcon(
                                 onPressed: () {
                                   removeLabel();
                                 },
@@ -281,7 +341,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
-                              child: FilledButton.tonalIcon(
+                              child: FilledButton.icon(
                                 onPressed: () {
                                   addLabel();
                                 },
@@ -313,7 +373,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
-                              child: FilledButton.icon(
+                              child: FilledButton.tonalIcon(
                                 onPressed: () {
                                   removeButton();
                                 },
@@ -324,7 +384,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                             ),
                             Padding(
                               padding: const EdgeInsets.only(bottom: 15),
-                              child: FilledButton.tonalIcon(
+                              child: FilledButton.icon(
                                 onPressed: () {
                                   addButton();
                                 },
@@ -367,21 +427,19 @@ class _AddProjectPageState extends State<AddProjectPage> {
                       child: projectBanner == 'default'
                           ? ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: finalImageLocalPath == null
+                              child: imageLocalPathFinal == null
                                   ? Image.network(
                                       'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=ea4f06a6-5543-4b42-ba25-8d8fd5e2ba20',
                                       fit: BoxFit.cover)
-                                  : Image.file(finalImageLocalPath!,
-                                      fit: BoxFit.cover),
-                            )
+                                  : Image.file(imageLocalPathFinal!,
+                                      fit: BoxFit.cover))
                           : ClipRRect(
                               borderRadius: BorderRadius.circular(10),
-                              child: finalImageLocalPath == null
-                                  ? Image.network(projectBanner,
+                              child: imageLocalPathFinal == null
+                                  ? Image.network(projectBanner!,
                                       fit: BoxFit.cover)
-                                  : Image.file(finalImageLocalPath!,
-                                      fit: BoxFit.cover),
-                            ),
+                                  : Image.file(imageLocalPathFinal!,
+                                      fit: BoxFit.cover)),
                     ),
                   ),
                   Row(
@@ -393,7 +451,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                           onPressed: () {
                             setState(() {
                               bannerChanged = false;
-                              finalImageLocalPath = null;
+                              imageLocalPathFinal = null;
                               selectedFile = null;
                             });
                           },
@@ -410,12 +468,10 @@ class _AddProjectPageState extends State<AddProjectPage> {
                               final imageLocalPath =
                                   File(selectedFile!.paths[0]!);
 
-                              setState(
-                                () {
-                                  bannerChanged = true;
-                                  finalImageLocalPath = imageLocalPath;
-                                },
-                              );
+                              setState(() {
+                                bannerChanged = true;
+                                imageLocalPathFinal = imageLocalPath;
+                              });
                             }
                           },
                           icon: const Icon(Icons.file_upload_outlined),
@@ -434,10 +490,10 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                 },
                               ),
                             );
-
+                            
                             if (imageSelected != null) {
                               setState(() {
-                                finalImageLocalPath == null;
+                                imageLocalPathFinal == null;
                                 projectBanner = imageSelected!;
                               });
                             }
@@ -445,7 +501,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                             //print(imageSelected);
                           },
                           icon: const Icon(Icons.image),
-                          label: const Text('Galeria'),
+                          label: const Text('Galería'),
                         ),
                       ),
                     ],
@@ -512,6 +568,42 @@ class _AddProjectPageState extends State<AddProjectPage> {
               height: 20,
             ),
             FilledButton.tonalIcon(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                      title: const Text('Confirmar eliminación del proyecto'),
+                      actions: [
+                        FilledButton.tonal(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text('Cancelar'),
+                        ),
+                        FilledButton(
+                          onPressed: () {
+                            deleteDocument(projectID);
+                            Navigator.pop(context);
+                            Navigator.popAndPushNamed(context, '/');
+                          },
+                          child: const Text('Confirmar'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+
+                // Navigator.pop(context);
+                // Navigator.popAndPushNamed(context, '/');
+              },
+              icon: const Icon(Icons.delete),
+              label: const Text('Eliminar'),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            FilledButton.icon(
               onPressed: () async {
                 formKey.currentState?.save();
 
@@ -530,17 +622,10 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   });
                 }
 
-                if (bannerChangedFromStorage == true) {
-                  var projectBannerFromStorageTemp = await uploadFile();
-
-                  setState(() {
-                    projectBanner = projectBannerFromStorageTemp;
-                  });
-                }
-
-                addDocument(
+                updateDocument(
+                    projectID,
                     cardColorDecimal,
-                    projectBanner,
+                    projectBanner!,
                     projectDescription!,
                     projectLabelsListEmpty,
                     buttonsListFinished,
@@ -559,5 +644,3 @@ class _AddProjectPageState extends State<AddProjectPage> {
     );
   }
 }
-
-//final GlobalKey<FormState> _formKey = GlobalKey<FormState>();

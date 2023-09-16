@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/model/image_utilities.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery%20page/image_utilities.dart';
 
 class PortafolioImages extends StatefulWidget {
   const PortafolioImages({super.key, required this.snapshot});

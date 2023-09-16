@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
-import 'package:portafolio_dashboard_flutter/model/image_list.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery%20image%20selector/image_list_selector.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
-import 'package:portafolio_dashboard_flutter/widgets/app_drawer.dart';
 
-class GaleryPage extends StatefulWidget {
-  const GaleryPage({super.key});
+class GaleryImageSelector extends StatefulWidget {
+  const GaleryImageSelector({super.key});
 
   @override
-  State<GaleryPage> createState() => _GaleryPageState();
+  State<GaleryImageSelector> createState() => _GaleryImageSelectorState();
 }
 
-class _GaleryPageState extends State<GaleryPage> {
+class _GaleryImageSelectorState extends State<GaleryImageSelector> {
   final FirebaseUserProfile _userProfile = FirebaseUserProfile();
   final GoogleAuthService _authService = GoogleAuthService();
 
@@ -25,28 +24,12 @@ class _GaleryPageState extends State<GaleryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: AppDrawer(userProfile: _userProfile, authService: _authService),
       appBar: AppBar(
-        title: const Text('Galería'),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        icon: const Icon(Icons.file_upload_outlined),
-        label: const Text('Subir imágen'),
-        onPressed: () async {
-
-          selectedFile = await selectFile();
-
-          if (selectedFile != null) {
-            await uploadFile();
-          }
-
-          Navigator.pushNamed(context, '/Galery');
-
-        },
+        title: const Text('Seleccionar imágen'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          Navigator.popAndPushNamed(context, '/Galery');
+          Navigator.popAndPushNamed(context, '/');
         },
         child: SingleChildScrollView(
           child: Padding(
@@ -59,7 +42,7 @@ class _GaleryPageState extends State<GaleryPage> {
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         //print(snapshot.data);
-                        return PortafolioImages(snapshot: snapshot);
+                        return PortafolioImagesSelector(snapshot: snapshot);
                       } else {
                         return const Center(
                           child: CircularProgressIndicator(

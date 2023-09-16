@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/model/project_list.dart';
-import 'package:portafolio_dashboard_flutter/pages/project%20pages/addproject.dart';
+import 'package:portafolio_dashboard_flutter/pages/projects/addproject.dart';
+import 'package:portafolio_dashboard_flutter/pages/projects/project_list.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
@@ -27,7 +27,8 @@ class _HomeState extends State<Home> {
         showCloseIcon: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          side: const BorderSide(width: 2, color: Color.fromARGB(255, 6, 196, 91)),
+          side: const BorderSide(
+              width: 2, color: Color.fromARGB(255, 6, 196, 91)),
         ),
         content: Stack(
           alignment: Alignment.center,
@@ -61,7 +62,8 @@ class _HomeState extends State<Home> {
         showCloseIcon: true,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
-          side: const BorderSide(width: 2, color: Color.fromARGB(255, 196, 6, 63)),
+          side: const BorderSide(
+              width: 2, color: Color.fromARGB(255, 196, 6, 63)),
         ),
         content: Stack(
           alignment: Alignment.center,
@@ -148,11 +150,12 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-                accountName: Text(_userProfile.userName!),
-                accountEmail: Text(_userProfile.userEmail!),
-                currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(_userProfile.userImageUrl!),
-                )),
+              accountName: Text(_userProfile.userName!),
+              accountEmail: Text(_userProfile.userEmail!),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(_userProfile.userImageUrl!),
+              ),
+            ),
             Column(
               children: [
                 ListTile(
@@ -162,6 +165,15 @@ class _HomeState extends State<Home> {
                     // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
                     Navigator.pop(context); // Cierra el cajón lateral.
                     Navigator.pushNamed(context, '/');
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.settings_sharp),
+                  title: const Text('Habilidades'),
+                  onTap: () {
+                    // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
+                    //Navigator.pop(context); // Cierra el cajón lateral.
+                    Navigator.pushNamed(context, '/Skills');
                   },
                 ),
                 ListTile(

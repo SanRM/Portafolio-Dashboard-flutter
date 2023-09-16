@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
 import 'package:portafolio_dashboard_flutter/pages/Home.dart';
-import 'package:portafolio_dashboard_flutter/pages/galery/galery_page.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 
 class AppDrawer extends StatefulWidget {
-  const AppDrawer({super.key, required this.userProfile, required this.authService});
+  const AppDrawer(
+      {super.key, required this.userProfile, required this.authService});
 
   final FirebaseUserProfile userProfile;
   final GoogleAuthService authService;
 
   @override
-  State<AppDrawer> createState() => _AppDrawerState(userProfile: userProfile, authService: authService);
+  State<AppDrawer> createState() =>
+      _AppDrawerState(userProfile: userProfile, authService: authService);
 }
 
 class _AppDrawerState extends State<AppDrawer> {
@@ -48,19 +49,21 @@ class _AppDrawerState extends State<AppDrawer> {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.settings_sharp),
+                title: const Text('Habilidades'),
+                onTap: () {
+                  // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
+                  //Navigator.pop(context); // Cierra el cajón lateral.
+                 Navigator.pushNamed(context, '/Skills');
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.image),
                 title: const Text('Galería'),
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
                   //Navigator.pop(context); // Cierra el cajón lateral.
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return const GaleryPage();
-                      },
-                    ),
-                  );
+                 Navigator.pushNamed(context, '/Galery');
                 },
               ),
             ],
@@ -69,9 +72,8 @@ class _AppDrawerState extends State<AppDrawer> {
             padding: const EdgeInsets.only(right: 20, left: 20),
             child: FilledButton.icon(
               onPressed: () async {
-
                 await widget.authService.signOutWithGoogle();
-                
+
                 setState(() {
                   userProfile.setUser = authService.currentUser;
                 });

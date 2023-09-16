@@ -48,6 +48,50 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:209186165717:android:4d6f17e3fe22767b3be35c",
+        "android_client_info": {
+          "package_name": "com.HorizonSanTech.portafolioDashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "209186165717-jbis7flbr2a558ugpj0vr19o7v4l5m6b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.HorizonSanTech.portafolioDashboard",
+            "certificate_hash": "4fedf3672e8b6860b718e62db05870084bbdc355"
+          }
+        },
+        {
+          "client_id": "209186165717-2ctodn2blksflgrla8832s5vkgnl49tv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN8V7_tXc5uaQQDuFhdxrD3FQZsmB4kG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "209186165717-0354n21g5363hc3t9jkppgaoa0tjmvq1.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "209186165717-estkgf0mj5jlcbfvdm4qlcjbr73e37fk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.portafolio.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

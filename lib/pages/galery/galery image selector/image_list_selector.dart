@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/model/image_utilities_selector.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery%20image%20selector/image_utilities_selector.dart';
 
 class PortafolioImagesSelector extends StatefulWidget {
   const PortafolioImagesSelector({super.key, required this.snapshot});
