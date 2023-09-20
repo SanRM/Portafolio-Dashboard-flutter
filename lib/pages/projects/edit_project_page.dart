@@ -615,7 +615,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                 // print('Color del proyecto: $cardColorDecimal');
 
                 if (bannerChanged == true) {
-                  var projectBannerTemp = await uploadFile();
+                  var projectBannerTemp = await uploadFile('imagenes');
 
                   setState(() {
                     projectBanner = projectBannerTemp;

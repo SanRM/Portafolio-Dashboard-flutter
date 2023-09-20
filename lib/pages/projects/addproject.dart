@@ -526,7 +526,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   // print('Color del proyecto: $cardColorDecimal');
 
                   if (bannerChanged == true) {
-                    var projectBannerTemp = await uploadFile();
+                    var projectBannerTemp = await uploadFile('imagenes');
 
                     setState(() {
                       projectBanner = projectBannerTemp;
@@ -534,7 +534,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   }
 
                   if (bannerChangedFromStorage == true) {
-                    var projectBannerFromStorageTemp = await uploadFile();
+                    var projectBannerFromStorageTemp = await uploadFile('imagenes');
 
                     setState(() {
                       projectBanner = projectBannerFromStorageTemp;

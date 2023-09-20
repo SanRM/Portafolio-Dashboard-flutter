@@ -17,6 +17,10 @@ class _GaleryPageState extends State<GaleryPage> {
   final FirebaseUserProfile _userProfile = FirebaseUserProfile();
   final GoogleAuthService _authService = GoogleAuthService();
 
+scrollTo(widget){
+    Scrollable.ensureVisible(widget.currentContext!, duration: const Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -24,6 +28,10 @@ class _GaleryPageState extends State<GaleryPage> {
   }
 
   int selectedIndex = 0;
+
+  GlobalKey bannersKey = GlobalKey();
+  GlobalKey personalImagesKey = GlobalKey();
+  GlobalKey badgesKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +45,22 @@ class _GaleryPageState extends State<GaleryPage> {
           setState(() {
             selectedIndex = newIndex;
           });
+
+          switch (selectedIndex) {
+            case 0:
+              scrollTo(bannersKey);
+              break;
+            case 1:
+              scrollTo(personalImagesKey);
+              break;
+            case 2:
+              scrollTo(badgesKey);
+              break;
+          }
+
         },
         selectedFontSize: 15,
+        iconSize: 30,
         currentIndex: selectedIndex,
         unselectedItemColor: Theme.of(context).colorScheme.secondary,
         selectedItemColor: Theme.of(context).colorScheme.primary,
@@ -49,7 +71,7 @@ class _GaleryPageState extends State<GaleryPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: 'Personal',
+            label: 'Fotos',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.star_rate_rounded),
@@ -68,33 +90,37 @@ class _GaleryPageState extends State<GaleryPage> {
               children: [
 
                 //2. Banners
-                CreateGalery(
-                  galeryName: 'Banners',
-                  buttonName: 'Subir banner',
-                  buttonFunction: () async {
-                    selectedFile = await selectFile();
-
-                    if (selectedFile != null) {
-                      await uploadFile();
-                    }
-
-                    Navigator.pushNamed(context, '/Galery');
-                  },
-                  widgetToLoad: FutureBuilder(
-                    future: getAllImageUrls(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        //print(snapshot.data);
-                        return PortafolioImages(snapshot: snapshot);
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 3,
-                            color: Color.fromARGB(137, 0, 141, 151),
-                          ),
-                        );
+                Container(
+                  key: bannersKey,
+                  child: CreateGalery(
+                    galeryName: 'Banners',
+                    buttonName: 'Subir banner',
+                    buttonFunction: () async {
+                      selectedFile = await selectFile();
+                
+                      if (selectedFile != null) {
+                        await uploadFile('imagenes');
                       }
+                
+                      Navigator.pushNamed(context, '/Galery');
                     },
+                    widgetToLoad: FutureBuilder(
+                      
+                      future: getAllImageUrls(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          //print(snapshot.data);
+                          return PortafolioImages(snapshot: snapshot, galeryType: 'imagenes');
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                              color: Color.fromARGB(137, 0, 141, 151),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ),
 
@@ -104,33 +130,77 @@ class _GaleryPageState extends State<GaleryPage> {
 
                 //2. Personal images
                 
-                CreateGalery(
-                  galeryName: 'Imágenes personales',
-                  buttonName: 'Subir foto',
-                  buttonFunction: () async {
-                    selectedFile = await selectFile();
-
-                    if (selectedFile != null) {
-                      await uploadFile();
-                    }
-
-                    Navigator.pushNamed(context, '/Galery');
-                  },
-                  widgetToLoad: FutureBuilder(
-                    future: getAllImageUrls(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        //print(snapshot.data);
-                        return Container();
-                      } else {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            strokeWidth: 3,
-                            color: Color.fromARGB(137, 0, 141, 151),
-                          ),
-                        );
+                Container(
+                  key: personalImagesKey,
+                  child: CreateGalery(
+                    galeryName: 'Imágenes personales',
+                    buttonName: 'Subir imágen',
+                    buttonFunction: () async {
+                      selectedFile = await selectFile();
+                
+                      if (selectedFile != null) {
+                        await uploadFile('imagenes personales');
                       }
+                
+                      Navigator.pushNamed(context, '/Galery');
                     },
+                    widgetToLoad: FutureBuilder(
+                      future: getAllPersonalImagesUrls(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          //print(snapshot.data);
+                          return PortafolioImages(snapshot: snapshot, galeryType: 'imagenes personales');
+                          //return Container();
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                              color: Color.fromARGB(137, 0, 141, 151),
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                  ),
+                ),
+
+                const SizedBox(
+                  height: 20,
+                ),
+
+                //2. Insignias
+                
+                Container(
+                  key: badgesKey,
+                  child: CreateGalery(
+                    galeryName: 'Insignias',
+                    buttonName: 'Subir insignia',
+                    buttonFunction: () async {
+                      selectedFile = await selectFile();
+                
+                      if (selectedFile != null) {
+                        await uploadFile('insignias');
+                      }
+                
+                      Navigator.pushNamed(context, '/Galery');
+                    },
+                    widgetToLoad: FutureBuilder(
+                      future: getAllLabelsUrls(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          //print(snapshot.data);
+                          return PortafolioImages(snapshot: snapshot, galeryType: 'insignias');
+                          //return Container();
+                        } else {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              strokeWidth: 3,
+                              color: Color.fromARGB(137, 0, 141, 151),
+                            ),
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ),
 

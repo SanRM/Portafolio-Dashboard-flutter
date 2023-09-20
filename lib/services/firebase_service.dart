@@ -5,6 +5,7 @@ FirebaseFirestore db = FirebaseFirestore.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
 
 CollectionReference projecList = db.collection("Lista de proyectos");
+CollectionReference skillsSection = db.collection("Sección de habilidades");
 
 Future<List> getProjects() async {
   List projects = [];
@@ -16,6 +17,18 @@ Future<List> getProjects() async {
   }
 
   return projects;
+}
+
+Future<List> getSkillsSection() async {
+  List skills = [];
+
+  QuerySnapshot querySnapshot = await skillsSection.get();
+
+  for (var documento in querySnapshot.docs) {
+    skills.add(documento.data());
+  }
+
+  return skills;
 }
 
 Future<List> getWhiteList() async {
