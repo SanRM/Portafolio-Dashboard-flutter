@@ -3,19 +3,17 @@ import 'package:flutter/material.dart';
 class ImageManagerSelector extends StatefulWidget {
   final String imageSelected;
 
-  const ImageManagerSelector(
-      {super.key, required this.imageSelected});
+  const ImageManagerSelector({super.key, required this.imageSelected});
 
   @override
-  State<ImageManagerSelector> createState() => _ImageManagerSelectorState(
-      imageSelected: imageSelected);
+  State<ImageManagerSelector> createState() =>
+      _ImageManagerSelectorState(imageSelected: imageSelected);
 }
 
 class _ImageManagerSelectorState extends State<ImageManagerSelector> {
   final String imageSelected;
 
-  _ImageManagerSelectorState(
-      {required this.imageSelected});
+  _ImageManagerSelectorState({required this.imageSelected});
 
   bool toggleChild = false;
 
@@ -33,10 +31,9 @@ class _ImageManagerSelectorState extends State<ImageManagerSelector> {
               setState(() {
                 toggleChild = !toggleChild;
               });
-              Future.delayed(const Duration(milliseconds: 250),(){
+              Future.delayed(const Duration(milliseconds: 250), () {
                 Navigator.pop(context, imageSelected);
               });
-
             },
             child: Container(
               decoration: BoxDecoration(

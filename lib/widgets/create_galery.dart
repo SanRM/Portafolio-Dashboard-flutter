@@ -7,11 +7,18 @@ class CreateGalery extends StatefulWidget {
   final Widget widgetToLoad;
 
   const CreateGalery(
-      {super.key, required this.galeryName, required this.buttonFunction, required this.buttonName, required this.widgetToLoad});
+      {super.key,
+      required this.galeryName,
+      required this.buttonFunction,
+      required this.buttonName,
+      required this.widgetToLoad});
 
   @override
   State<CreateGalery> createState() => _CreateGaleryState(
-      galeryName: galeryName, buttonFunction: buttonFunction, buttonName: buttonName,  widgetToLoad: widgetToLoad);
+      galeryName: galeryName,
+      buttonFunction: buttonFunction,
+      buttonName: buttonName,
+      widgetToLoad: widgetToLoad);
 }
 
 class _CreateGaleryState extends State<CreateGalery> {
@@ -20,7 +27,11 @@ class _CreateGaleryState extends State<CreateGalery> {
   String buttonName;
   Widget widgetToLoad;
 
-  _CreateGaleryState({required this.galeryName, required this.buttonFunction, required this.buttonName, required this.widgetToLoad});
+  _CreateGaleryState(
+      {required this.galeryName,
+      required this.buttonFunction,
+      required this.buttonName,
+      required this.widgetToLoad});
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +68,7 @@ class _CreateGaleryState extends State<CreateGalery> {
           const SizedBox(
             height: 20,
           ),
-
           widgetToLoad,
-
           const SizedBox(
             height: 20,
           ),

@@ -17,8 +17,10 @@ class _GaleryPageState extends State<GaleryPage> {
   final FirebaseUserProfile _userProfile = FirebaseUserProfile();
   final GoogleAuthService _authService = GoogleAuthService();
 
-scrollTo(widget){
-    Scrollable.ensureVisible(widget.currentContext!, duration: const Duration(seconds: 1), curve: Curves.easeInOutCubicEmphasized);
+  scrollTo(widget) {
+    Scrollable.ensureVisible(widget.currentContext!,
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOutCubicEmphasized);
   }
 
   @override
@@ -57,7 +59,6 @@ scrollTo(widget){
               scrollTo(badgesKey);
               break;
           }
-
         },
         selectedFontSize: 15,
         iconSize: 30,
@@ -88,7 +89,6 @@ scrollTo(widget){
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-
                 //2. Banners
                 Container(
                   key: bannersKey,
@@ -97,20 +97,20 @@ scrollTo(widget){
                     buttonName: 'Subir banner',
                     buttonFunction: () async {
                       selectedFile = await selectFile();
-                
+
                       if (selectedFile != null) {
                         await uploadFile('imagenes');
                       }
-                
+
                       Navigator.pushNamed(context, '/Galery');
                     },
                     widgetToLoad: FutureBuilder(
-                      
                       future: getAllImageUrls(),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           //print(snapshot.data);
-                          return PortafolioImages(snapshot: snapshot, galeryType: 'imagenes');
+                          return PortafolioImages(
+                              snapshot: snapshot, galeryType: 'imagenes');
                         } else {
                           return const Center(
                             child: CircularProgressIndicator(
@@ -129,7 +129,7 @@ scrollTo(widget){
                 ),
 
                 //2. Personal images
-                
+
                 Container(
                   key: personalImagesKey,
                   child: CreateGalery(
@@ -137,11 +137,11 @@ scrollTo(widget){
                     buttonName: 'Subir imágen',
                     buttonFunction: () async {
                       selectedFile = await selectFile();
-                
+
                       if (selectedFile != null) {
                         await uploadFile('imagenes personales');
                       }
-                
+
                       Navigator.pushNamed(context, '/Galery');
                     },
                     widgetToLoad: FutureBuilder(
@@ -149,7 +149,9 @@ scrollTo(widget){
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           //print(snapshot.data);
-                          return PortafolioImages(snapshot: snapshot, galeryType: 'imagenes personales');
+                          return PortafolioImages(
+                              snapshot: snapshot,
+                              galeryType: 'imagenes personales');
                           //return Container();
                         } else {
                           return const Center(
@@ -169,7 +171,7 @@ scrollTo(widget){
                 ),
 
                 //2. Insignias
-                
+
                 Container(
                   key: badgesKey,
                   child: CreateGalery(
@@ -177,11 +179,11 @@ scrollTo(widget){
                     buttonName: 'Subir insignia',
                     buttonFunction: () async {
                       selectedFile = await selectFile();
-                
+
                       if (selectedFile != null) {
                         await uploadFile('insignias');
                       }
-                
+
                       Navigator.pushNamed(context, '/Galery');
                     },
                     widgetToLoad: FutureBuilder(
@@ -189,7 +191,8 @@ scrollTo(widget){
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           //print(snapshot.data);
-                          return PortafolioImages(snapshot: snapshot, galeryType: 'insignias');
+                          return PortafolioImages(
+                              snapshot: snapshot, galeryType: 'insignias');
                           //return Container();
                         } else {
                           return const Center(
@@ -203,7 +206,6 @@ scrollTo(widget){
                     ),
                   ),
                 ),
-
               ],
             ),
           ),

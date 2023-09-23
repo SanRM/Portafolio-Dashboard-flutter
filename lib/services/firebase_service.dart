@@ -34,7 +34,8 @@ Future<List> getSkillsSection() async {
 Future<List> getWhiteList() async {
   List whiteList = [];
 
-  CollectionReference collectionReference = db.collection("Lista blanca de usuarios");
+  CollectionReference collectionReference =
+      db.collection("Lista blanca de usuarios");
 
   QuerySnapshot querySnapshot = await collectionReference.get();
 
@@ -45,24 +46,24 @@ Future<List> getWhiteList() async {
   return whiteList;
 }
 
-  Future<List> getDocumentID() async {
-
+Future<List> getDocumentID() async {
   List<String> projectsIds = [];
 
   QuerySnapshot querySnapshot = await projecList.get();
 
-  for (var element in querySnapshot.docs) { 
+  for (var element in querySnapshot.docs) {
     projectsIds.add(element.id);
   }
 
   return projectsIds;
-
 }
 
 Future<void> updateProjectBanner(String projectID, String projectBanner) async {
   try {
     // Obtiene una referencia al documento que deseas editar
-    DocumentReference docRef = FirebaseFirestore.instance.collection('Lista de proyectos').doc(projectID);
+    DocumentReference docRef = FirebaseFirestore.instance
+        .collection('Lista de proyectos')
+        .doc(projectID);
 
     Map<String, dynamic> conversion = {
       "projectBanner": projectBanner,
@@ -79,10 +80,19 @@ Future<void> updateProjectBanner(String projectID, String projectBanner) async {
   }
 }
 
-Future<void> updateDocument(String projectID, int cardBgColor, String projectBanner, String projectDescription, List projectLabels, List projectLinks, String projectTitle) async {
+Future<void> updateDocument(
+    String projectID,
+    int cardBgColor,
+    String projectBanner,
+    String projectDescription,
+    List projectLabels,
+    List projectLinks,
+    String projectTitle) async {
   try {
     // Obtiene una referencia al documento que deseas editar
-    DocumentReference docRef = FirebaseFirestore.instance.collection('Lista de proyectos').doc(projectID);
+    DocumentReference docRef = FirebaseFirestore.instance
+        .collection('Lista de proyectos')
+        .doc(projectID);
 
     Map<String, dynamic> conversion = {
       "cardBgColor": cardBgColor,
@@ -90,7 +100,7 @@ Future<void> updateDocument(String projectID, int cardBgColor, String projectBan
       "projectDescription": projectDescription,
       "projectLabels": projectLabels,
       "projectLinks": projectLinks,
-      "projectTitle" : projectTitle,
+      "projectTitle": projectTitle,
     };
 
     //print(conversion);
@@ -104,7 +114,13 @@ Future<void> updateDocument(String projectID, int cardBgColor, String projectBan
   }
 }
 
-Future<void> addDocument(int cardBgColor, String projectBanner, String projectDescription, List projectLabels, List projectLinks, String projectTitle) async {
+Future<void> addDocument(
+    int cardBgColor,
+    String projectBanner,
+    String projectDescription,
+    List projectLabels,
+    List projectLinks,
+    String projectTitle) async {
   try {
     // Obtiene una referencia al documento que deseas editar
 
@@ -114,7 +130,7 @@ Future<void> addDocument(int cardBgColor, String projectBanner, String projectDe
       "projectDescription": projectDescription,
       "projectLabels": projectLabels,
       "projectLinks": projectLinks,
-      "projectTitle" : projectTitle,
+      "projectTitle": projectTitle,
     };
     // Utiliza el método set con la opción merge para actualizar los campos específicos
     await db.collection("Lista de proyectos").add(conversion);
@@ -129,7 +145,9 @@ Future<void> deleteDocument(String projectID) async {
   try {
     // Obtiene una referencia al documento que deseas editar
     // Utiliza el método set con la opción merge para actualizar los campos específicos
-    DocumentReference docRef = FirebaseFirestore.instance.collection('Lista de proyectos').doc(projectID);
+    DocumentReference docRef = FirebaseFirestore.instance
+        .collection('Lista de proyectos')
+        .doc(projectID);
 
     await docRef.delete();
 
@@ -138,4 +156,3 @@ Future<void> deleteDocument(String projectID) async {
     //print('Error al eliminado el documento: $error');
   }
 }
-

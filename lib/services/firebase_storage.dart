@@ -53,7 +53,6 @@ Future<List<Reference>> getFileFirestoreName(folder) async {
   return imageReferences;
 }
 
-
 Future<void> removeImage(String imageUrl, folder) async {
   final storageReference = FirebaseStorage.instance.ref();
 
@@ -70,7 +69,6 @@ Future<void> removeImage(String imageUrl, folder) async {
     //print('Error al eliminar la imagen: $e');
   }
 }
-
 
 Future<List<String>> getAllImageUrls() async {
   List<String> downloadUrls = [];
@@ -95,7 +93,8 @@ Future<List<String>> getAllImageUrls() async {
 Future<List<String>> getAllPersonalImagesUrls() async {
   List<String> downloadUrls = [];
 
-  final storageReference = FirebaseStorage.instance.ref().child('imagenes personales');
+  final storageReference =
+      FirebaseStorage.instance.ref().child('imagenes personales');
 
   try {
     final ListResult result = await storageReference.listAll();

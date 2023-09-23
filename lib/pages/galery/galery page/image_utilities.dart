@@ -133,33 +133,40 @@ class _ImageManagerState extends State<ImageManager> {
                               }
 
                               if (galeryType == "imagenes personales") {
-
                                 print(galeryType);
-                                
-                                var imageSelectedFirestoreInfo = await getFileFirestoreName(galeryType);
 
-                                print(imageSelectedFirestoreInfo[indexSelected].name);
+                                var imageSelectedFirestoreInfo =
+                                    await getFileFirestoreName(galeryType);
 
-                                await removeImage(imageSelectedFirestoreInfo[indexSelected].name, galeryType);
+                                print(imageSelectedFirestoreInfo[indexSelected]
+                                    .name);
+
+                                await removeImage(
+                                    imageSelectedFirestoreInfo[indexSelected]
+                                        .name,
+                                    galeryType);
 
                                 Navigator.pop(context);
                                 Navigator.popAndPushNamed(context, '/Galery');
                               }
 
                               if (galeryType == "insignias") {
-
                                 print(galeryType);
-                                
-                                var imageSelectedFirestoreInfo = await getFileFirestoreName(galeryType);
 
-                                print(imageSelectedFirestoreInfo[indexSelected].name);
+                                var imageSelectedFirestoreInfo =
+                                    await getFileFirestoreName(galeryType);
 
-                                await removeImage(imageSelectedFirestoreInfo[indexSelected].name, galeryType);
+                                print(imageSelectedFirestoreInfo[indexSelected]
+                                    .name);
+
+                                await removeImage(
+                                    imageSelectedFirestoreInfo[indexSelected]
+                                        .name,
+                                    galeryType);
 
                                 Navigator.pop(context);
                                 Navigator.popAndPushNamed(context, '/Galery');
                               }
-
                             },
                             child: const Text('Confirmar'),
                           ),

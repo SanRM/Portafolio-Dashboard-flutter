@@ -26,9 +26,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.cyan),
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 190, 247, 255)
-        ),
+            centerTitle: true,
+            backgroundColor: Color.fromARGB(255, 190, 247, 255)),
       ),
       initialRoute: '/',
       routes: {

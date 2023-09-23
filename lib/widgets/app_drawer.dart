@@ -54,7 +54,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
                   //Navigator.pop(context); // Cierra el cajón lateral.
-                 Navigator.pushNamed(context, '/Skills');
+                  Navigator.pushNamed(context, '/Skills');
                 },
               ),
               ListTile(
@@ -63,7 +63,7 @@ class _AppDrawerState extends State<AppDrawer> {
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
                   //Navigator.pop(context); // Cierra el cajón lateral.
-                 Navigator.pushNamed(context, '/Galery');
+                  Navigator.pushNamed(context, '/Galery');
                 },
               ),
             ],

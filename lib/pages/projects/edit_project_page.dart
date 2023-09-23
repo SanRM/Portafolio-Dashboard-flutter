@@ -194,7 +194,8 @@ class _EditProjectPageState extends State<EditProjectPage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.black)),
+                                borderSide:
+                                    const BorderSide(color: Colors.black)),
                             label: Text('Nombre del botón ${index + 1}'),
                           ),
                         ),
@@ -229,7 +230,8 @@ class _EditProjectPageState extends State<EditProjectPage> {
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: const BorderSide(color: Colors.black)),
+                                borderSide:
+                                    const BorderSide(color: Colors.black)),
                             label: Text('Url ${index + 1}'),
                           ),
                         ),
@@ -243,7 +245,6 @@ class _EditProjectPageState extends State<EditProjectPage> {
         },
       );
     }
-
 
     //final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -407,8 +408,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
               child: Column(
                 children: [
                   const Padding(
-                    padding:
-                        EdgeInsets.only(top: 15, right: 15, left: 15),
+                    padding: EdgeInsets.only(top: 15, right: 15, left: 15),
                     child: Text(
                       'Banner',
                       style: TextStyle(fontSize: 20),
@@ -490,7 +490,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                                 },
                               ),
                             );
-                            
+
                             if (imageSelected != null) {
                               setState(() {
                                 imageLocalPathFinal == null;
