@@ -384,7 +384,6 @@ class _SkillsPageState extends State<SkillsPage> {
                           BadgesImageListEmpty = [];
                           BadgesNameListEmpty = [];
                           
-                          Navigator.pop(context);
                           Navigator.popAndPushNamed(context, '/Skills');
                         },
                         icon: const Icon(Icons.check),
