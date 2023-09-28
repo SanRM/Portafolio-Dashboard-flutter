@@ -182,7 +182,6 @@ class _InitialInformationState extends State<InitialInformation> {
 
                           updatePrincipalImage(documentID[0], principalBanner);
 
-                          Navigator.pop(context);
                           Navigator.popAndPushNamed(context, '/InitialInformation');
                           
                         },
