@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
 import 'package:portafolio_dashboard_flutter/pages/Home.dart';
+import 'package:portafolio_dashboard_flutter/pages/initial%20information/initial_information.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -36,8 +37,21 @@ class _AppDrawerState extends State<AppDrawer> {
           Column(
             children: [
               ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Información inicial'),
+                onTap: () {
+                  // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
+                  //Navigator.pop(context); // Cierra el cajón lateral.
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return const InitialInformation();
+                    },
+                  ));
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.edit_note_sharp),
-                title: const Text('Editor de proyectos'),
+                title: const Text('Proyectos'),
                 onTap: () {
                   // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
                   //Navigator.pop(context); // Cierra el cajón lateral.

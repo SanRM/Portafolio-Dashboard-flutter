@@ -6,6 +6,7 @@ FirebaseStorage storage = FirebaseStorage.instance;
 
 CollectionReference projecList = db.collection("Lista de proyectos");
 CollectionReference skillsSection = db.collection("Sección de habilidades");
+CollectionReference initialInfoSection = db.collection("Información inicial");
 
 Future<List> getProjects() async {
   List projects = [];
@@ -19,7 +20,7 @@ Future<List> getProjects() async {
   return projects;
 }
 
-Future<List> getSkillsSection() async {
+Future<List> getSkills() async {
   List skills = [];
 
   QuerySnapshot querySnapshot = await skillsSection.get();
@@ -29,6 +30,18 @@ Future<List> getSkillsSection() async {
   }
 
   return skills;
+}
+
+Future<List> getInitialInfo() async {
+  List initialInfo = [];
+
+  QuerySnapshot querySnapshot = await initialInfoSection.get();
+
+  for (var documento in querySnapshot.docs) {
+    initialInfo.add(documento.data());
+  }
+
+  return initialInfo;
 }
 
 Future<List> getWhiteList() async {
@@ -56,6 +69,86 @@ Future<List> getDocumentID() async {
   }
 
   return projectsIds;
+}
+
+Future<List> getDocumentSkillsID() async {
+  List<String> documentIds = [];
+
+  QuerySnapshot querySnapshot = await skillsSection.get();
+
+  for (var element in querySnapshot.docs) {
+    documentIds.add(element.id);
+  }
+
+  return documentIds;
+}
+
+Future<List> getInitialInfoID() async {
+  List<String> documentIds = [];
+
+  QuerySnapshot querySnapshot = await initialInfoSection.get();
+
+  for (var element in querySnapshot.docs) {
+    documentIds.add(element.id);
+  }
+
+  return documentIds;
+}
+
+Future<void> updateSkills(String projectID, Map<String, dynamic> informationToEdit) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+    DocumentReference docRef = FirebaseFirestore.instance.collection('Sección de habilidades').doc(projectID);
+
+    print(informationToEdit);
+
+    // Método update para actualizar el documento con el mapa completo
+    await docRef.update(informationToEdit);
+
+    print('Documento editado con éxito');
+  } catch (error) {
+    print('Error al editar el documento: $error');
+  }
+}
+
+Future<void> updatePrincipalImage(String documentID, String principalImage) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+    DocumentReference docRef = FirebaseFirestore.instance.collection('Información inicial').doc(documentID);
+
+    Map<String, dynamic> conversion = {
+      "principalBanner": principalImage,
+    };
+
+    //print(conversion);
+
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    await docRef.set(conversion, SetOptions(merge: true));
+
+    //print('Documento editado con éxito');
+  } catch (error) {
+    //print('Error al editar el documento: $error');
+  }
+}
+
+Future<void> updateLateralImage(String projectID, String lateralImage) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+    DocumentReference docRef = FirebaseFirestore.instance.collection('Sección de habilidades').doc(projectID);
+
+    Map<String, dynamic> conversion = {
+      "Imagen lateral": lateralImage,
+    };
+
+    //print(conversion);
+
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    await docRef.set(conversion, SetOptions(merge: true));
+
+    //print('Documento editado con éxito');
+  } catch (error) {
+    //print('Error al editar el documento: $error');
+  }
 }
 
 Future<void> updateProjectBanner(String projectID, String projectBanner) async {

@@ -70,10 +70,10 @@ Future<void> removeImage(String imageUrl, folder) async {
   }
 }
 
-Future<List<String>> getAllImageUrls() async {
+Future<List<String>> getUrlImageList(folder) async {
   List<String> downloadUrls = [];
 
-  final storageReference = FirebaseStorage.instance.ref().child('imagenes');
+  final storageReference = FirebaseStorage.instance.ref().child(folder);
 
   try {
     final ListResult result = await storageReference.listAll();

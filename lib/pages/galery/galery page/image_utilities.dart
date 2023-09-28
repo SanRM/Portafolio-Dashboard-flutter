@@ -94,22 +94,17 @@ class _ImageManagerState extends State<ImageManager> {
                                 var todaLaInformacion = await getProjects();
                                 var listaDeIds = await getDocumentID();
 
-                                for (var i = 0;
-                                    i < todaLaInformacion.length;
-                                    i++) {
-                                  var todaLaInformacionItem =
-                                      todaLaInformacion[i]['projectBanner'];
+                                for (var i = 0; i < todaLaInformacion.length; i++) {
+                                  var todaLaInformacionItem = todaLaInformacion[i]['projectBanner'];
 
                                   if (todaLaInformacionItem == 'default') {
-                                    todaLaInformacionItem =
-                                        'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=d3613ab9-ae8e-4803-ada4-43c70248e7cc';
+                                    todaLaInformacionItem = 'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%2FDefault%20project%20banner.png?alt=media&token=d3613ab9-ae8e-4803-ada4-43c70248e7cc';
                                   }
 
                                   if (todaLaInformacionItem == imageSelected) {
                                     //print('La imagen: $imageSelected está repetida');
                                     //print('El id del proyecto de la imagen repetida es: ${listaDeIds[i]}');
-                                    updateProjectBanner(
-                                        listaDeIds[i], 'default');
+                                    updateProjectBanner(listaDeIds[i], 'default');
                                   } else {
                                     //print('No hay imagenes repetidas');
                                   }
@@ -117,34 +112,44 @@ class _ImageManagerState extends State<ImageManager> {
 
                                 //print(imagenRepetida);
 
-                                var imageSelectedFirestoreInfo =
-                                    await getFileFirestoreName(galeryType);
+                                var imageSelectedFirestoreInfo = await getFileFirestoreName(galeryType);
 
-                                print(imageSelectedFirestoreInfo[indexSelected]
-                                    .name);
+                                //print(imageSelectedFirestoreInfo[indexSelected].name);
 
-                                await removeImage(
-                                    imageSelectedFirestoreInfo[indexSelected]
-                                        .name,
-                                    galeryType);
+                                await removeImage(imageSelectedFirestoreInfo[indexSelected].name, galeryType);
 
                                 Navigator.pop(context);
                                 Navigator.popAndPushNamed(context, '/Galery');
                               }
 
+
                               if (galeryType == "imagenes personales") {
-                                print(galeryType);
+                                //print(galeryType);
 
-                                var imageSelectedFirestoreInfo =
-                                    await getFileFirestoreName(galeryType);
+                                var todaLaInformacionSkills = await getSkills();
+                                var listaDeIds = await getDocumentSkillsID();
 
-                                print(imageSelectedFirestoreInfo[indexSelected]
-                                    .name);
+                                for (var i = 0; i < todaLaInformacionSkills.length; i++) {
+                                  var todaLaInformacionItem = todaLaInformacionSkills[i]['Imagen lateral'];
 
-                                await removeImage(
-                                    imageSelectedFirestoreInfo[indexSelected]
-                                        .name,
-                                    galeryType);
+                                  if (todaLaInformacionItem == 'default') {
+                                    todaLaInformacionItem = 'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%20personales%2FPersonalData.png?alt=media&token=1c94cb6b-3f64-436d-9dce-cd8d70fb02c3';
+                                  }
+
+                                  //if (todaLaInformacionItem == imageSelected) {
+                                    //print('La imagen: $imageSelected está repetida');
+                                    //print('El id del proyecto de la imagen repetida es: ${listaDeIds[i]}');
+                                    updateLateralImage(listaDeIds[i], 'https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/imagenes%20personales%2FPersonalData.png?alt=media&token=1c94cb6b-3f64-436d-9dce-cd8d70fb02c3');
+                                  //} else {
+                                    //print('No hay imagenes repetidas');
+                                  //}
+                                }
+
+                                var imageSelectedFirestoreInfo = await getFileFirestoreName(galeryType);
+
+                                print(imageSelectedFirestoreInfo[indexSelected].name);
+
+                                await removeImage(imageSelectedFirestoreInfo[indexSelected].name, galeryType);
 
                                 Navigator.pop(context);
                                 Navigator.popAndPushNamed(context, '/Galery');
@@ -153,16 +158,11 @@ class _ImageManagerState extends State<ImageManager> {
                               if (galeryType == "insignias") {
                                 print(galeryType);
 
-                                var imageSelectedFirestoreInfo =
-                                    await getFileFirestoreName(galeryType);
+                                var imageSelectedFirestoreInfo = await getFileFirestoreName(galeryType);
 
-                                print(imageSelectedFirestoreInfo[indexSelected]
-                                    .name);
+                                print(imageSelectedFirestoreInfo[indexSelected].name);
 
-                                await removeImage(
-                                    imageSelectedFirestoreInfo[indexSelected]
-                                        .name,
-                                    galeryType);
+                                await removeImage(imageSelectedFirestoreInfo[indexSelected].name, galeryType);
 
                                 Navigator.pop(context);
                                 Navigator.popAndPushNamed(context, '/Galery');

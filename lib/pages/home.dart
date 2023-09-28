@@ -159,6 +159,16 @@ class _HomeState extends State<Home> {
             Column(
               children: [
                 ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Información inicial'),
+                  onTap: () {
+                    // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
+                    Navigator.pop(context); // Cierra el cajón lateral.
+                    Navigator.pushNamed(context, '/InitialInformation');
+                  },
+                ),
+                
+                ListTile(
                   leading: const Icon(Icons.edit_note_sharp),
                   title: const Text('Editor de proyectos'),
                   onTap: () {

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:portafolio_dashboard_flutter/pages/galery/galery%20image%20selector/galery_image_selector.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery%20selectors/banner_selector.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
@@ -140,17 +140,15 @@ class _AddProjectPageState extends State<AddProjectPage> {
                         onSaved: (value) {
                           projectButtonsUrlListEmpty.add(value);
 
-                          for (int i = 0;
-                              i < projectButtonsUrlListEmpty.length;
-                              i++) {
-                            projectButtonsUrlMap['url'] =
-                                projectButtonsUrlListEmpty[i];
+                          for (int i = 0; i < projectButtonsUrlListEmpty.length; i++) {
+                            projectButtonsUrlMap['url'] = projectButtonsUrlListEmpty[i];
                           }
 
                           mapMerged = {
                             ...projectButtonsNameMap,
                             ...projectButtonsUrlMap
                           };
+                          
                           buttonsListFinished.add(mapMerged);
 
                           //print('Botones del proyecto (url map) as Map: $projectButtonsUrlMap');
@@ -410,8 +408,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                               selectedFile = await selectFile();
 
                               if (selectedFile != null) {
-                                final imageLocalPath =
-                                    File(selectedFile!.paths[0]!);
+                                final imageLocalPath = File(selectedFile!.paths[0]!);
 
                                 setState(
                                   () {
@@ -433,7 +430,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) {
-                                    return const GaleryImageSelector();
+                                    return const GaleryBannerSelector();
                                   },
                                 ),
                               );
@@ -534,8 +531,7 @@ class _AddProjectPageState extends State<AddProjectPage> {
                   }
 
                   if (bannerChangedFromStorage == true) {
-                    var projectBannerFromStorageTemp =
-                        await uploadFile('imagenes');
+                    var projectBannerFromStorageTemp = await uploadFile('imagenes');
 
                     setState(() {
                       projectBanner = projectBannerFromStorageTemp;

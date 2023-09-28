@@ -105,7 +105,7 @@ class _GaleryPageState extends State<GaleryPage> {
                       Navigator.pushNamed(context, '/Galery');
                     },
                     widgetToLoad: FutureBuilder(
-                      future: getAllImageUrls(),
+                      future: getUrlImageList('imagenes'),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           //print(snapshot.data);

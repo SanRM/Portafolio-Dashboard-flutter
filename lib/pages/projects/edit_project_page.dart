@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:portafolio_dashboard_flutter/pages/galery/galery%20image%20selector/galery_image_selector.dart';
+import 'package:portafolio_dashboard_flutter/pages/galery/galery%20selectors/banner_selector.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
@@ -486,7 +486,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) {
-                                  return const GaleryImageSelector();
+                                  return const GaleryBannerSelector();
                                 },
                               ),
                             );
