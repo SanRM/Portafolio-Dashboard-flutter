@@ -29,7 +29,7 @@ class GoogleAuthService {
       final UserCredential userCredential =
           await _firebaseAuth.signInWithCredential(credential);
 
-      var whiteList = await getWhiteList();
+      var whiteList = await getCollectionInfo("Lista blanca de usuarios");
       List whiteListDocumento = whiteList[0]['White list'];
 
       // print('');

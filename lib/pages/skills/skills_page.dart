@@ -64,7 +64,7 @@ class _SkillsPageState extends State<SkillsPage> {
       ),
       drawer: AppDrawer(userProfile: _userProfile, authService: _authService),
       body: FutureBuilder(
-        future: getSkills(),
+        future: getCollectionInfo("Sección de habilidades"),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             //print(snapshot.data);
@@ -366,10 +366,10 @@ class _SkillsPageState extends State<SkillsPage> {
                             ...personalDescriptionMap,
                           };
 
-                          var skillsSection = await getSkills();
+                          var skillsSection = await getCollectionInfo("Sección de habilidades");
                           //print("getSkillsSection: ${skillsSection[0]['Insignias']}");
 
-                          var documentSkillsID = await getDocumentSkillsID();
+                          var documentSkillsID = await getDocumentID("Lista de proyectos");
 
                           print("getSkillsSection: ${skillsSection[0]}");
 

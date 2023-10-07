@@ -29,7 +29,7 @@ class _PortafolioProjectsState extends State<PortafolioProjects> {
     }
 
     return FutureBuilder(
-      future: getDocumentID(),
+      future: getDocumentID("Lista de proyectos"),
       builder: (context, snapshot) {
         var projectsID = snapshot.data;
 

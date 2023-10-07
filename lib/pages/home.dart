@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:portafolio_dashboard_flutter/pages/projects/addproject.dart';
+import 'package:portafolio_dashboard_flutter/pages/projects/create_project.dart';
 import 'package:portafolio_dashboard_flutter/pages/projects/project_list.dart';
 import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 import 'package:portafolio_dashboard_flutter/model/firebase_user.dart';
@@ -140,7 +140,7 @@ class _HomeState extends State<Home> {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(
             builder: (context) {
-              return const AddProjectPage();
+              return const CreateProjectPage();
             },
           ));
         },
@@ -167,10 +167,9 @@ class _HomeState extends State<Home> {
                     Navigator.pushNamed(context, '/InitialInformation');
                   },
                 ),
-                
                 ListTile(
                   leading: const Icon(Icons.edit_note_sharp),
-                  title: const Text('Editor de proyectos'),
+                  title: const Text('Proyectos'),
                   onTap: () {
                     // Agrega aquí la lógica de navegación o acción para la opción "Inicio".
                     Navigator.pop(context); // Cierra el cajón lateral.
@@ -184,6 +183,15 @@ class _HomeState extends State<Home> {
                     // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
                     //Navigator.pop(context); // Cierra el cajón lateral.
                     Navigator.pushNamed(context, '/Skills');
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(Icons.credit_card_outlined),
+                  title: const Text('Certificados'),
+                  onTap: () {
+                    // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
+                    //Navigator.pop(context); // Cierra el cajón lateral.
+                    Navigator.pushNamed(context, '/Certificados');
                   },
                 ),
                 ListTile(
@@ -230,7 +238,7 @@ class _HomeState extends State<Home> {
               child: Column(
                 children: [
                   FutureBuilder(
-                    future: getProjects(),
+                    future: getCollectionInfo("Lista de proyectos"),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         //print(snapshot.data);

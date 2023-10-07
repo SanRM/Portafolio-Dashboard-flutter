@@ -4,14 +4,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 FirebaseFirestore db = FirebaseFirestore.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
 
-CollectionReference projecList = db.collection("Lista de proyectos");
-CollectionReference skillsSection = db.collection("Sección de habilidades");
-CollectionReference initialInfoSection = db.collection("Información inicial");
-
-Future<List> getProjects() async {
+Future<List> getCollectionInfo(Collection) async {
   List projects = [];
 
-  QuerySnapshot querySnapshot = await projecList.get();
+  QuerySnapshot querySnapshot = await db.collection(Collection).get();
 
   for (var documento in querySnapshot.docs) {
     projects.add(documento.data());
@@ -20,79 +16,17 @@ Future<List> getProjects() async {
   return projects;
 }
 
-Future<List> getSkills() async {
-  List skills = [];
 
-  QuerySnapshot querySnapshot = await skillsSection.get();
-
-  for (var documento in querySnapshot.docs) {
-    skills.add(documento.data());
-  }
-
-  return skills;
-}
-
-Future<List> getInitialInfo() async {
-  List initialInfo = [];
-
-  QuerySnapshot querySnapshot = await initialInfoSection.get();
-
-  for (var documento in querySnapshot.docs) {
-    initialInfo.add(documento.data());
-  }
-
-  return initialInfo;
-}
-
-Future<List> getWhiteList() async {
-  List whiteList = [];
-
-  CollectionReference collectionReference =
-      db.collection("Lista blanca de usuarios");
-
-  QuerySnapshot querySnapshot = await collectionReference.get();
-
-  for (var documento in querySnapshot.docs) {
-    whiteList.add(documento.data());
-  }
-
-  return whiteList;
-}
-
-Future<List> getDocumentID() async {
+Future<List> getDocumentID(Collection) async {
   List<String> projectsIds = [];
 
-  QuerySnapshot querySnapshot = await projecList.get();
+  QuerySnapshot querySnapshot = await db.collection(Collection).get();
 
   for (var element in querySnapshot.docs) {
     projectsIds.add(element.id);
   }
 
   return projectsIds;
-}
-
-Future<List> getDocumentSkillsID() async {
-  List<String> documentIds = [];
-
-  QuerySnapshot querySnapshot = await skillsSection.get();
-
-  for (var element in querySnapshot.docs) {
-    documentIds.add(element.id);
-  }
-
-  return documentIds;
-}
-
-Future<List> getInitialInfoID() async {
-  List<String> documentIds = [];
-
-  QuerySnapshot querySnapshot = await initialInfoSection.get();
-
-  for (var element in querySnapshot.docs) {
-    documentIds.add(element.id);
-  }
-
-  return documentIds;
 }
 
 Future<void> updateSkills(String projectID, Map<String, dynamic> informationToEdit) async {
@@ -207,6 +141,36 @@ Future<void> updateDocument(
   }
 }
 
+Future<void> updateCertificate(
+    String certificateID,
+    String certificateTitle,
+    String certificateDescription,
+    String certificateUrl,
+    List certificateLabels) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+    DocumentReference docRef = FirebaseFirestore.instance
+        .collection('Certificados')
+        .doc(certificateID);
+
+    Map<String, dynamic> conversion = {
+      "title": certificateTitle,
+      "description": certificateDescription,
+      "Url": certificateUrl,
+      "labels": certificateLabels,
+    };
+
+    //print(conversion);
+
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    await docRef.set(conversion);
+
+    print('Documento editado con éxito');
+  } catch (error) {
+    print('Error al editar el documento: $error');
+  }
+}
+
 Future<void> addDocument(
     int cardBgColor,
     String projectBanner,
@@ -227,6 +191,29 @@ Future<void> addDocument(
     };
     // Utiliza el método set con la opción merge para actualizar los campos específicos
     await db.collection("Lista de proyectos").add(conversion);
+
+    //print('Documento creado con éxito');
+  } catch (error) {
+    //print('Error al crear el documento: $error');
+  }
+}
+
+Future<void> addCertificate(
+    String certificateTitle,
+    String certificateDescription,
+    String certificateUrl,
+    List certificateLabels) async {
+  try {
+    // Obtiene una referencia al documento que deseas editar
+
+    Map<String, dynamic> conversion = {
+      "title": certificateTitle,
+      "description": certificateDescription,
+      "Url": certificateUrl,
+      "labels": certificateLabels,
+    };
+    // Utiliza el método set con la opción merge para actualizar los campos específicos
+    await db.collection("Certificados").add(conversion);
 
     //print('Documento creado con éxito');
   } catch (error) {

@@ -6,14 +6,14 @@ import 'package:portafolio_dashboard_flutter/pages/galery/galery%20selectors/ban
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
-class AddProjectPage extends StatefulWidget {
-  const AddProjectPage({super.key});
+class CreateProjectPage extends StatefulWidget {
+  const CreateProjectPage({super.key});
 
   @override
-  State<AddProjectPage> createState() => _AddProjectPageState();
+  State<CreateProjectPage> createState() => _CreateProjectPageState();
 }
 
-class _AddProjectPageState extends State<AddProjectPage> {
+class _CreateProjectPageState extends State<CreateProjectPage> {
   int fieldCount = 0;
 
   bool? bannerChanged;
@@ -23,7 +23,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
   removeLabel() {
     setState(() {
-      fieldCount -= 1;
+      if (fieldCount > 0) {
+        fieldCount -= 1;
+      }
     });
   }
 
@@ -68,7 +70,9 @@ class _AddProjectPageState extends State<AddProjectPage> {
 
   removeButton() {
     setState(() {
-      buttonCount -= 1;
+      if (buttonCount > 0) {
+        buttonCount -= 1; 
+      }
     });
   }
 

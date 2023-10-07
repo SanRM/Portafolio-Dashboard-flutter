@@ -72,6 +72,15 @@ class _AppDrawerState extends State<AppDrawer> {
                 },
               ),
               ListTile(
+                leading: const Icon(Icons.credit_card_outlined),
+                title: const Text('Certificados'),
+                onTap: () {
+                  // Agrega aquí la lógica de navegación o acción para la opción "Configuración".
+                  //Navigator.pop(context); // Cierra el cajón lateral.
+                  Navigator.pushNamed(context, '/Certificados');
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.image),
                 title: const Text('Galería'),
                 onTap: () {

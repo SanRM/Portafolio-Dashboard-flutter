@@ -85,7 +85,9 @@ class _EditProjectPageState extends State<EditProjectPage> {
 
     removeLabel() {
       setState(() {
-        fieldCount -= 1;
+        if (fieldCount > 0) {
+          fieldCount -= 1;
+        }
       });
     }
 
@@ -132,7 +134,9 @@ class _EditProjectPageState extends State<EditProjectPage> {
 
     removeButton() {
       setState(() {
-        buttonCount -= 1;
+        if (buttonCount > 0) {
+          buttonCount -= 1;
+        }
       });
     }
 

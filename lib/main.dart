@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:portafolio_dashboard_flutter/pages/certificates/certificates.dart';
 import 'package:portafolio_dashboard_flutter/pages/galery/galery%20page/galery_page.dart';
 import 'package:portafolio_dashboard_flutter/pages/home.dart';
 import 'package:portafolio_dashboard_flutter/pages/initial%20information/initial_information.dart';
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
       routes: {
         '/Galery': (context) => const GaleryPage(),
         '/Skills': (context) => const SkillsPage(),
-        '/InitialInformation': (context) => InitialInformation(),
+        '/InitialInformation': (context) => const InitialInformation(),
+        '/Certificados': (context) => const Certificates(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Portafolio Dashboard - Santiago Rodriguez Morales',

@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
@@ -91,8 +93,8 @@ class _ImageManagerState extends State<ImageManager> {
                               //String insignias = "insignias";
 
                               if (galeryType == "imagenes") {
-                                var todaLaInformacion = await getProjects();
-                                var listaDeIds = await getDocumentID();
+                                var todaLaInformacion = await getCollectionInfo("Lista de proyectos");
+                                var listaDeIds = await getDocumentID("Lista de proyectos");
 
                                 for (var i = 0; i < todaLaInformacion.length; i++) {
                                   var todaLaInformacionItem = todaLaInformacion[i]['projectBanner'];
@@ -126,8 +128,8 @@ class _ImageManagerState extends State<ImageManager> {
                               if (galeryType == "imagenes personales") {
                                 //print(galeryType);
 
-                                var todaLaInformacionSkills = await getSkills();
-                                var listaDeIds = await getDocumentSkillsID();
+                                var todaLaInformacionSkills = await getCollectionInfo("Sección de habilidades");
+                                var listaDeIds = await getDocumentID("Lista de proyectos");
 
                                 for (var i = 0; i < todaLaInformacionSkills.length; i++) {
                                   var todaLaInformacionItem = todaLaInformacionSkills[i]['Imagen lateral'];

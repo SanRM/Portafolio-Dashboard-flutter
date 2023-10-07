@@ -45,7 +45,7 @@ class _InitialInformationState extends State<InitialInformation> {
       ),
       drawer: AppDrawer(userProfile: _userProfile, authService: _authService),
       body: FutureBuilder(
-        future: getInitialInfo(),
+        future: getCollectionInfo("Información inicial"),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             //print(snapshot.data);
@@ -178,7 +178,7 @@ class _InitialInformationState extends State<InitialInformation> {
                             });
                           }
 
-                          var documentID = await getInitialInfoID();
+                          var documentID = await getDocumentID("Información inicial");
 
                           updatePrincipalImage(documentID[0], principalBanner);
 
