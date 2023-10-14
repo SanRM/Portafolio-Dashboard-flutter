@@ -39,10 +39,10 @@ class _CreateGaleryState extends State<CreateGalery> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(vertical: 10),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.secondaryContainer,
-              borderRadius: BorderRadius.vertical(
+              borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(10),
               ),
             ),
@@ -50,16 +50,16 @@ class _CreateGaleryState extends State<CreateGalery> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Container(
+                SizedBox(
                   width: 150,
                   child: Text(
                     galeryName,
-                    style: TextStyle(fontSize: 25),
+                    style: const TextStyle(fontSize: 25),
                   ),
                 ),
                 FilledButton.icon(
                   onPressed: buttonFunction,
-                  icon: Icon(Icons.file_upload_outlined),
+                  icon: const Icon(Icons.file_upload_outlined),
                   label: Text(buttonName),
                 )
               ],

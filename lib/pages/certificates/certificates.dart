@@ -126,7 +126,7 @@ class _CertificatesState extends State<Certificates> {
                                                 color: Colors.black,
                                                 fontSize: 15),
                                           ),
-                                          Container(
+                                          SizedBox(
                                             height: 50,
                                             child: ListView.builder(
                                               scrollDirection: Axis.horizontal,
@@ -138,7 +138,7 @@ class _CertificatesState extends State<Certificates> {
                                                     Chip(
                                                       label: Text(certificateLabels[index]),
                                                     ),
-                                                    SizedBox(
+                                                    const SizedBox(
                                                       width: 10,
                                                       height: 10,
                                                     )

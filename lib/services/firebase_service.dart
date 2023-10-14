@@ -4,10 +4,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 FirebaseFirestore db = FirebaseFirestore.instance;
 FirebaseStorage storage = FirebaseStorage.instance;
 
-Future<List> getCollectionInfo(Collection) async {
+Future<List> getCollectionInfo(collection) async {
   List projects = [];
 
-  QuerySnapshot querySnapshot = await db.collection(Collection).get();
+  QuerySnapshot querySnapshot = await db.collection(collection).get();
 
   for (var documento in querySnapshot.docs) {
     projects.add(documento.data());
@@ -17,10 +17,10 @@ Future<List> getCollectionInfo(Collection) async {
 }
 
 
-Future<List> getDocumentID(Collection) async {
+Future<List> getDocumentID(collection) async {
   List<String> projectsIds = [];
 
-  QuerySnapshot querySnapshot = await db.collection(Collection).get();
+  QuerySnapshot querySnapshot = await db.collection(collection).get();
 
   for (var element in querySnapshot.docs) {
     projectsIds.add(element.id);
@@ -34,14 +34,14 @@ Future<void> updateSkills(String projectID, Map<String, dynamic> informationToEd
     // Obtiene una referencia al documento que deseas editar
     DocumentReference docRef = FirebaseFirestore.instance.collection('Sección de habilidades').doc(projectID);
 
-    print(informationToEdit);
+    //print(informationToEdit);
 
     // Método update para actualizar el documento con el mapa completo
     await docRef.update(informationToEdit);
 
-    print('Documento editado con éxito');
+    //print('Documento editado con éxito');
   } catch (error) {
-    print('Error al editar el documento: $error');
+    //print('Error al editar el documento: $error');
   }
 }
 
@@ -165,9 +165,9 @@ Future<void> updateCertificate(
     // Utiliza el método set con la opción merge para actualizar los campos específicos
     await docRef.set(conversion);
 
-    print('Documento editado con éxito');
+    //print('Documento editado con éxito');
   } catch (error) {
-    print('Error al editar el documento: $error');
+    //print('Error al editar el documento: $error');
   }
 }
 
@@ -221,12 +221,12 @@ Future<void> addCertificate(
   }
 }
 
-Future<void> deleteDocument(String projectID) async {
+Future<void> deleteDocument(String projectID, String collection) async {
   try {
     // Obtiene una referencia al documento que deseas editar
     // Utiliza el método set con la opción merge para actualizar los campos específicos
     DocumentReference docRef = FirebaseFirestore.instance
-        .collection('Lista de proyectos')
+        .collection(collection)
         .doc(projectID);
 
     await docRef.delete();

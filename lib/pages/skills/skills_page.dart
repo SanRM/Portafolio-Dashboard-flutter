@@ -9,8 +9,8 @@ import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_storage.dart';
 import 'package:portafolio_dashboard_flutter/widgets/app_drawer.dart';
 
-List<String> BadgesImageListEmpty = [];
-List<String> BadgesNameListEmpty = [];
+List<String> badgesImageListEmpty = [];
+List<String> badgesNameListEmpty = [];
 bool badgesImageChanged = false;
 
 class SkillsPage extends StatefulWidget {
@@ -261,7 +261,7 @@ class _SkillsPageState extends State<SkillsPage> {
                                   if (i < insignias.length) {
                                     finalBadgesWidgetsList.add(Badges(insignia: insignias[i], actualIndex: i));
                                   } else {
-                                    finalBadgesWidgetsList.add(Badges(insignia: {
+                                    finalBadgesWidgetsList.add(Badges(insignia: const {
                                       "ImageUrl": "https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/insignias%2Fmedalla.png?alt=media&token=e8d91863-d857-4873-9d3c-4d71b6fc0ac9",
                                       "nombre": ""
                                     }, actualIndex: i));
@@ -321,18 +321,18 @@ class _SkillsPageState extends State<SkillsPage> {
                           // print("");
                           // print("Imágen lateral: $lateralImage");
                           // print('Descripción personal: $personalDescription');
-                          List<Map<String, dynamic>> BadgesListMerged = []; 
+                          List<Map<String, dynamic>> badgesListMerged = []; 
 
-                          for (int i = 0; i < BadgesImageListEmpty.length; i++) {
+                          for (int i = 0; i < badgesImageListEmpty.length; i++) {
 
                             Map<String, dynamic> finalBadgesList = {
-                              'ImageUrl': BadgesNameListEmpty[i],
-                              'nombre': BadgesImageListEmpty[i]
+                              'ImageUrl': badgesNameListEmpty[i],
+                              'nombre': badgesImageListEmpty[i]
                             };
 
-                            BadgesListMerged.add(finalBadgesList);
+                            badgesListMerged.add(finalBadgesList);
 
-                            print("BadgesListMerged: $BadgesListMerged");
+                            //print("BadgesListMerged: $badgesListMerged");
 
                           }
 
@@ -353,7 +353,7 @@ class _SkillsPageState extends State<SkillsPage> {
                           };
 
                           Map<String, dynamic> finalBadgesListNamed = {
-                            'Insignias': BadgesListMerged,
+                            'Insignias': badgesListMerged,
                           };
 
                           // print('Imagen lateral: $lateralImageMap');
@@ -366,23 +366,22 @@ class _SkillsPageState extends State<SkillsPage> {
                             ...personalDescriptionMap,
                           };
 
-                          var skillsSection = await getCollectionInfo("Sección de habilidades");
                           //print("getSkillsSection: ${skillsSection[0]['Insignias']}");
 
                           var documentSkillsID = await getDocumentID("Lista de proyectos");
 
-                          print("getSkillsSection: ${skillsSection[0]}");
+                          //print("getSkillsSection: ${skillsSection[0]}");
 
-                          print("DocumentSkillsID: ${documentSkillsID[0]}");
+                          //print("DocumentSkillsID: ${documentSkillsID[0]}");
 
                           //print("finalBadgesListNamed: $finalBadgesListNamed");
 
-                          print("mapMerged: $mapMerged");
+                          //print("mapMerged: $mapMerged");
 
                           updateSkills(documentSkillsID[0], mapMerged);
 
-                          BadgesImageListEmpty = [];
-                          BadgesNameListEmpty = [];
+                          badgesImageListEmpty = [];
+                          badgesNameListEmpty = [];
                           
                           Navigator.popAndPushNamed(context, '/Skills');
                         },
@@ -395,7 +394,7 @@ class _SkillsPageState extends State<SkillsPage> {
               ),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
@@ -543,19 +542,20 @@ class _BadgesState extends State<Badges> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: 15),
+                  // ignore: sized_box_for_whitespace
                   child: Container(
                     width: containerWidth / 2.5,
                     child: TextFormField(
                       onSaved: (value) async {
 
-                          BadgesImageListEmpty.add(value!);
+                          badgesImageListEmpty.add(value!);
 
                           if (badgeImageUrl != "default") {
 
-                            BadgesNameListEmpty.add(badgeImageUrl);  
+                            badgesNameListEmpty.add(badgeImageUrl);  
                               
                           } else {
-                            BadgesNameListEmpty.add("https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/insignias%2Fmedalla.png?alt=media&token=e8d91863-d857-4873-9d3c-4d71b6fc0ac9");
+                            badgesNameListEmpty.add("https://firebasestorage.googleapis.com/v0/b/portafolio-65df7.appspot.com/o/insignias%2Fmedalla.png?alt=media&token=e8d91863-d857-4873-9d3c-4d71b6fc0ac9");
                           }
 
                           // if (badgesImageChanged == true) {

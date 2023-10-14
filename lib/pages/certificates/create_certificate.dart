@@ -225,10 +225,10 @@ class _CreateCertificateState extends State<CreateCertificate> {
                 onPressed: () async {
                   formKey.currentState?.save();
 
-                  print('certificateTitle: $certificateTitle');
-                  print('certificateDescription: $certificateDescription');
-                  print('certificateUrl: $certificateUrl');
-                  print('projectLabelsListEmpty: $projectLabelsListEmpty');
+                  //print('certificateTitle: $certificateTitle');
+                  //print('certificateDescription: $certificateDescription');
+                  //print('certificateUrl: $certificateUrl');
+                  //print('projectLabelsListEmpty: $projectLabelsListEmpty');
 
                   addCertificate(
                       certificateTitle!,

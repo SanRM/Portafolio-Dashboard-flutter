@@ -149,7 +149,7 @@ class _ImageManagerState extends State<ImageManager> {
 
                                 var imageSelectedFirestoreInfo = await getFileFirestoreName(galeryType);
 
-                                print(imageSelectedFirestoreInfo[indexSelected].name);
+                                //print(imageSelectedFirestoreInfo[indexSelected].name);
 
                                 await removeImage(imageSelectedFirestoreInfo[indexSelected].name, galeryType);
 
@@ -158,11 +158,11 @@ class _ImageManagerState extends State<ImageManager> {
                               }
 
                               if (galeryType == "insignias") {
-                                print(galeryType);
+                                //print(galeryType);
 
                                 var imageSelectedFirestoreInfo = await getFileFirestoreName(galeryType);
 
-                                print(imageSelectedFirestoreInfo[indexSelected].name);
+                                //print(imageSelectedFirestoreInfo[indexSelected].name);
 
                                 await removeImage(imageSelectedFirestoreInfo[indexSelected].name, galeryType);
 

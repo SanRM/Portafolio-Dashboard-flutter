@@ -194,7 +194,7 @@ class _InitialInformationState extends State<InitialInformation> {
               ),
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

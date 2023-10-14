@@ -6,28 +6,42 @@ import 'package:portafolio_dashboard_flutter/services/auth_with_google.dart';
 import 'package:portafolio_dashboard_flutter/services/firebase_service.dart';
 
 class EditCertificate extends StatefulWidget {
-
-  final String certificateId;  
+  final String certificateId;
   final String certificateTitle;
-  final String certificateDescription; 
-  final List certificateLabels; 
+  final String certificateDescription;
+  final List certificateLabels;
   final String certificateUrl;
 
-  const EditCertificate({super.key, required this.certificateId, required this.certificateTitle, required this.certificateDescription, required this.certificateLabels, required this.certificateUrl});
+  const EditCertificate(
+      {super.key,
+      required this.certificateId,
+      required this.certificateTitle,
+      required this.certificateDescription,
+      required this.certificateLabels,
+      required this.certificateUrl});
 
   @override
-  State<EditCertificate> createState() => _EditCertificateState(certificateID: certificateId, certificateTitle: certificateTitle, certificateDescription: certificateDescription, certificateLabels: certificateLabels, certificateUrl: certificateUrl);
+  State<EditCertificate> createState() => _EditCertificateState(
+      certificateID: certificateId,
+      certificateTitle: certificateTitle,
+      certificateDescription: certificateDescription,
+      certificateLabels: certificateLabels,
+      certificateUrl: certificateUrl);
 }
 
 class _EditCertificateState extends State<EditCertificate> {
-
   String certificateID;
   String certificateTitle;
-  String certificateDescription; 
-  List certificateLabels; 
+  String certificateDescription;
+  List certificateLabels;
   String certificateUrl;
 
-  _EditCertificateState({required this.certificateID, required this.certificateTitle, required this.certificateDescription, required this.certificateLabels, required this.certificateUrl});
+  _EditCertificateState(
+      {required this.certificateID,
+      required this.certificateTitle,
+      required this.certificateDescription,
+      required this.certificateLabels,
+      required this.certificateUrl});
 
   final FirebaseUserProfile _userProfile = FirebaseUserProfile();
   final GoogleAuthService _authService = GoogleAuthService();
@@ -41,17 +55,14 @@ class _EditCertificateState extends State<EditCertificate> {
 
   int fieldCount = 0;
 
-
   @override
   Widget build(BuildContext context) {
-
     List projectLabelsList = certificateLabels.toList();
     List projectLabelsListEmpty = [];
 
     GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
     ListView getFields() {
-
       return ListView.builder(
         shrinkWrap: true,
         itemCount: fieldCount,
@@ -66,8 +77,8 @@ class _EditCertificateState extends State<EditCertificate> {
                 });
               },
               initialValue: index < projectLabelsList.length
-              ? projectLabelsList[index]
-              : '',
+                  ? projectLabelsList[index]
+                  : '',
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
@@ -243,16 +254,57 @@ class _EditCertificateState extends State<EditCertificate> {
                 height: 20,
               ),
               FilledButton.tonalIcon(
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text('Confirmar eliminación del certificado: $certificateTitle'),
+                        actions: [
+                          FilledButton.tonal(
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Cancelar'),
+                          ),
+                          FilledButton(
+                            onPressed: () {
+                              deleteDocument(certificateID, 'Certificados');
+                              Navigator.pop(context);
+                              Navigator.popAndPushNamed(context, '/Certificados');
+                            },
+                            child: const Text('Confirmar'),
+                          ),
+                        ],
+                      );
+                    },
+                  );
+
+                  // Navigator.pop(context);
+                  // Navigator.popAndPushNamed(context, '/');
+                },
+                icon: const Icon(Icons.delete),
+                label: const Text('Eliminar'),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              FilledButton.icon(
                 onPressed: () async {
                   formKey.currentState?.save();
 
-                  print(certificateID);
-                  print('certificateTitle: $certificateTitle');
-                  print('certificateDescription: $certificateDescription');
-                  print('certificateUrl: $certificateUrl');
-                  print('projectLabelsListEmpty: $projectLabelsListEmpty');
+                  //print(certificateID);
+                  //print('certificateTitle: $certificateTitle');
+                  //print('certificateDescription: $certificateDescription');
+                  //print('certificateUrl: $certificateUrl');
+                  //print('projectLabelsListEmpty: $projectLabelsListEmpty');
 
-                  updateCertificate(certificateID, certificateTitle, certificateDescription, certificateUrl, projectLabelsListEmpty);
+                  updateCertificate(
+                      certificateID,
+                      certificateTitle,
+                      certificateDescription,
+                      certificateUrl,
+                      projectLabelsListEmpty);
 
                   //projectLabelsListEmpty = [];
                   Navigator.pop(context);

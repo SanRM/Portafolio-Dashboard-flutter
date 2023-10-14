@@ -577,7 +577,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                   context: context,
                   builder: (context) {
                     return AlertDialog(
-                      title: const Text('Confirmar eliminación del proyecto'),
+                      title: Text('Confirmar eliminación del proyecto: $projectTitle'),
                       actions: [
                         FilledButton.tonal(
                           onPressed: () {
@@ -587,7 +587,7 @@ class _EditProjectPageState extends State<EditProjectPage> {
                         ),
                         FilledButton(
                           onPressed: () {
-                            deleteDocument(projectID);
+                            deleteDocument(projectID, 'Lista de proyectos');
                             Navigator.pop(context);
                             Navigator.popAndPushNamed(context, '/');
                           },
