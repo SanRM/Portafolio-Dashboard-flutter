@@ -368,7 +368,7 @@ class _SkillsPageState extends State<SkillsPage> {
 
                           //print("getSkillsSection: ${skillsSection[0]['Insignias']}");
 
-                          var documentSkillsID = await getDocumentID("Lista de proyectos");
+                          var documentSkillsID = await getDocumentID("Sección de habilidades");
 
                           //print("getSkillsSection: ${skillsSection[0]}");
 
