@@ -11,8 +11,7 @@ class GoogleAuthService {
   Future<UserCredential?> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
-      final GoogleSignInAccount? googleSignInAccount =
-          await _googleSignIn.signIn();
+      final GoogleSignInAccount? googleSignInAccount = await _googleSignIn.signIn();
       if (googleSignInAccount == null) return null;
 
       // Obtain the auth details from the request
@@ -47,7 +46,7 @@ class GoogleAuthService {
 
       //return await _firebaseAuth.signInWithCredential(credential);
     } catch (error) {
-      //print('Error en el metodo signInWithGoogle: ${error.toString()}');
+      print('Error en el metodo signInWithGoogle: ${error.toString()}');
       return null;
     }
   }

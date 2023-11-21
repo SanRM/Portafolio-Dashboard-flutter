@@ -20,10 +20,6 @@
             "package_name": "com.HorizonSanTech.portafolio",
             "certificate_hash": "4fedf3672e8b6860b718e62db05870084bbdc355"
           }
-        },
-        {
-          "client_id": "209186165717-2ctodn2blksflgrla8832s5vkgnl49tv.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -35,7 +31,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "209186165717-0354n21g5363hc3t9jkppgaoa0tjmvq1.apps.googleusercontent.com",
+              "client_id": "209186165717-juljeb2b9585qe0p6pf933pgjo9urqjv.apps.googleusercontent.com",
               "client_type": 3
             },
             {
@@ -64,10 +60,6 @@
             "package_name": "com.HorizonSanTech.portafolioDashboard",
             "certificate_hash": "4fedf3672e8b6860b718e62db05870084bbdc355"
           }
-        },
-        {
-          "client_id": "209186165717-2ctodn2blksflgrla8832s5vkgnl49tv.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
@@ -79,7 +71,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "209186165717-0354n21g5363hc3t9jkppgaoa0tjmvq1.apps.googleusercontent.com",
+              "client_id": "209186165717-juljeb2b9585qe0p6pf933pgjo9urqjv.apps.googleusercontent.com",
               "client_type": 3
             },
             {
