@@ -1,5 +1,9 @@
 # Panel de control de portafolio personal
 
+<p align="center">
+  <img src="assets/portafolio_dashboard_presentation.gif" alt="portafolio dashboard video presentation" />
+</p>
+
 ## Overview
 
 The control panel of my portfolio is an application with exclusive login for authorized Google accounts.
