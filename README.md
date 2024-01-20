@@ -1,16 +1,27 @@
-# portafolio_dashboard_flutter
+# Panel de control de portafolio personal
 
-A new Flutter project.
+## Overview
 
-## Getting Started
+The control panel of my portfolio is an application with exclusive login for authorized Google accounts.
 
-This project is a starting point for a Flutter application.
+It allows efficient management of portfolio information. Users can edit details, change images, and use a custom gallery. Additionally, they can create, modify, and delete projects, badges, descriptions, certificates, etc. (CRUD).
 
-A few resources to get you started if this is your first Flutter project:
+The application also provides detailed information about the active Google account.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+***
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Built with
+
+- Dart
+- Flutter
+
+***
+
+## Author 
+
+- `Santiago Rodriguez Morales` - [@SanRM](https://github.com/SanRM)
+
+<a href="https://www.linkedin.com/in/santiago-rodr%C3%ADguez-morales-0701161b1">
+  <img src="https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white">
+</a> 
+
